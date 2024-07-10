@@ -19,10 +19,13 @@ return new class extends Migration
             $table->unsignedBigInteger('game_type_id');
             $table->unsignedBigInteger('product_id');
             $table->string('image_url');
+            $table->boolean('status')->default(1);
+            $table->boolean('hot_status')->default(0);
+
             $table->timestamps();
 
-            $table->foreign('game_type_id')->references('id')->on('game_types')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            // $table->foreign('game_type_id')->references('id')->on('game_types')->onDelete('cascade');
+            // $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 
         });
     }

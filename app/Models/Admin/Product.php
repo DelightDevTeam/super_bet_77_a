@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_id','name','order'];
+    protected $fillable = ['code','name', 'short_name', 'order', 'status'];
     protected $appends = ['imgUrl']; // Changed from 'image' to 'imgUrl'
     //protected $appends = ['image'];
 
