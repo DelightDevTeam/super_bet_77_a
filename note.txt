@@ -8,3 +8,5 @@ php -r "file_put_contents('/var/www/html/shwe_dragon_slot_a/storage/logs/laravel
     // Route::get('show/{product_code}', [TestReportController::class, 'show'])->name('report.show');
     // Route::get('detail/{user_id}/{product_code}', [TestReportController::class, 'detail'])->name('report.detail');
     // });
+
+    livesportapi.online
