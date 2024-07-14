@@ -39,7 +39,7 @@ Route::get('v1/validate', [AuthController::class, 'callback']);
 Route::get('gameTypeProducts/{id}', [GameController::class, 'gameTypeProducts']);
 Route::get('allGameProducts', [GameController::class, 'allGameProducts']);
 Route::get('gameType', [GameController::class, 'gameType']);
-Route::get('gamelist/{product_id}/{game_type_id}', [GameController::class, 'gameList']);
+//Route::get('gamelist/{product_id}/{game_type_id}', [GameController::class, 'gameList']);
 Route::get('hotgamelist', [GameController::class, 'HotgameList']);
 
 Route::post('Seamless/PullReport', [LaunchGameController::class, 'pullReport']);
@@ -84,14 +84,10 @@ Route::group(["middleware" => ['auth:sanctum']], function () {
     });
     Route::group(['prefix' => 'game'], function () {
         Route::post('Seamless/LaunchGame', [LaunchGameController::class, 'launchGame']);
-<<<<<<< HEAD
         Route::get('gamelist/{provider_id}/{game_type_id}', [GameController::class, 'gameList']);
     });
 
     Route::group(['prefix' => 'direct'], function () {
         Route::post('Seamless/LaunchGame', [DirectLaunchGameController::class, 'launchGame']);
-=======
-        Route::post('Seamless/directLaunchGame', [LaunchGameController::class, 'directlaunchGame']);
->>>>>>> f71179cae6897e3ad02c6b010b7d47dd29322671
     });
 });
