@@ -24,6 +24,7 @@ class ProductTableSeeder extends Seeder
                 'name' => 'SBO',
                 'short_name' => 'SBO',
                 'order' => 11,
+                'game_list_status' => '0'
             ],
             [
                 'code' => '1013',
@@ -35,8 +36,8 @@ class ProductTableSeeder extends Seeder
                 'code' => '1016',
                 'name' => 'YEE Bet',
                 'short_name' => 'YEE Bet',
-
                 'order' => 13,
+                'game_list_status' => '0'
             ],
             [
                 'code' => '1020',
@@ -62,8 +63,9 @@ class ProductTableSeeder extends Seeder
                 'code' => '1035',
                 'name' => 'Vivo Gaming',
                 'short_name' => 'VG',
-
                 'order' => 17,
+                'game_list_status' => '0'
+
             ],
             [
                 'code' => '1050',
@@ -202,8 +204,9 @@ class ProductTableSeeder extends Seeder
                 'code' => '1001',
                 'name' => 'Asia Gaming',
                 'short_name' => 'AsiaGaming',
-
                 'order' => 36,
+                'game_list_status' => '0'
+
             ],
             [
                 'code' => '1002',
@@ -258,8 +261,8 @@ class ProductTableSeeder extends Seeder
                 'code' => '1038',
                 'name' => 'King 855',
                 'short_name' => 'K855',
-
                 'order' => 40,
+                'game_list_status' => '0'
             ],
             [
                 'code' => '1041',
@@ -286,30 +289,24 @@ class ProductTableSeeder extends Seeder
                 'code' => '1089',
                 'name' => 'Simple Play	',
                 'short_name' => 'SP',
-
                 'order' => 44,
+                'game_list_status' => '0'
+
             ],
             [
                 'code' => '1084',
                 'name' => 'Advant Play',
                 'short_name' => 'AP',
-
                 'order' => 45,
             ],
             [
                 'code' => '1104',
                 'name' => 'SSports',
                 'short_name' => 'Sport',
-
                 'order' => 46,
-            ],
-            // [
-            //     'code' => '1052',
-            //     'name' => 'Dream Gaming',
-            //     'short_name' => 'DG',
+                'game_list_status' => '0'
 
-            //     'order' => 48,
-            // ],
+            ],
             [
                 'code' => '1055',
                 'name' => 'Mr Slotty',
@@ -341,6 +338,10 @@ class ProductTableSeeder extends Seeder
             ],
         ];
 
-        Product::insert($data);
+        //Product::insert($data);
+        foreach ($data as $obj) {
+            Product::create($obj);
+        }
+
     }
 }

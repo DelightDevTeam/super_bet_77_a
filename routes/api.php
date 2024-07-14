@@ -1,29 +1,30 @@
 <?php
 
-use App\Http\Controllers\Admin\BannerTextController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\Api\V1\BannerController;
+use App\Http\Controllers\Admin\BannerTextController;
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Bank\BankController;
+use App\Http\Controllers\Api\V1\Game\GameController;
+use App\Http\Controllers\Api\V1\PromotionController;
+use App\Http\Controllers\Api\V1\Player\WagerController;
 use App\Http\Controllers\Api\V1\Webhook\BonusController;
 use App\Http\Controllers\Api\V1\Webhook\BuyInController;
 use App\Http\Controllers\Api\V1\Webhook\BuyOutController;
-use App\Http\Controllers\Api\V1\Game\GameController;
-use App\Http\Controllers\Api\V1\PromotionController;
+use App\Http\Controllers\Api\V1\Game\LaunchGameController;
+use App\Http\Controllers\Api\V1\Player\WithDrawController;
+use App\Http\Controllers\Api\V1\Webhook\JackPotController;
+use App\Http\Controllers\Api\V1\Webhook\PushBetController;
+use App\Http\Controllers\Api\V1\Webhook\PlaceBetController;
 use App\Http\Controllers\Api\V1\Webhook\RollbackController;
 use App\Http\Controllers\Api\V1\Webhook\CancelBetController;
+use App\Http\Controllers\Api\V1\Player\TransactionController;
 use App\Http\Controllers\Api\V1\Webhook\GameResultController;
 use App\Http\Controllers\Api\V1\Webhook\GetBalanceController;
-use App\Http\Controllers\Api\V1\Webhook\JackPotController;
-use App\Http\Controllers\Api\V1\Game\LaunchGameController;
 use App\Http\Controllers\Api\V1\Webhook\MobileLoginController;
-use App\Http\Controllers\Api\V1\Webhook\PushBetController;
-use App\Http\Controllers\Api\V1\Player\WithDrawController;
+use App\Http\Controllers\Api\V1\Game\DirectLaunchGameController;
 use App\Http\Controllers\Api\V1\Player\PlayerTransactionLogController;
-use App\Http\Controllers\Api\V1\Player\TransactionController;
-use App\Http\Controllers\Api\V1\Player\WagerController;
-use App\Http\Controllers\Api\V1\Webhook\PlaceBetController;
-use App\Http\Controllers\TestController;
 
 //login route post
 Route::post('/login', [AuthController::class, 'login']);
@@ -80,10 +81,11 @@ Route::group(["middleware" => ['auth:sanctum']], function () {
         Route::get('all', [BankController::class, 'all']);
     });
     Route::group(['prefix' => 'game'], function () {
-        // Route::get('gameType', [GameController::class, 'gameType']);
-        // Route::get('gameTypeProducts/{id}', [GameController::class, 'gameTypeProducts']);
         Route::post('Seamless/LaunchGame', [LaunchGameController::class, 'launchGame']);
-        // Route::post('Seamless/PullReport', [LaunchGameController::class, 'pullReport']);
-        // Route::get('gamelist/{provider_id}/{game_type_id}', [GameController::class, 'gameList']);
+        Route::get('gamelist/{provider_id}/{game_type_id}', [GameController::class, 'gameList']);
+    });
+
+    Route::group(['prefix' => 'direct'], function () {
+        Route::post('Seamless/LaunchGame', [DirectLaunchGameController::class, 'launchGame']);
     });
 });

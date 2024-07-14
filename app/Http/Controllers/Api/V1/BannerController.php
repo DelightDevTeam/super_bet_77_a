@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
 use App\Models\Admin\Banner;
-use App\Models\Admin\BannerText;
 use App\Traits\HttpResponses;
+use App\Models\Admin\BannerAds;
+use App\Models\Admin\BannerText;
+use App\Http\Controllers\Controller;
 
 class BannerController extends Controller
 {
@@ -23,4 +24,11 @@ class BannerController extends Controller
 
           return $this->success($data);
      }
+
+     public function AdsBannerIndex()
+    {
+        $data = BannerAds::latest()->first();
+
+        return $this->success($data);
+    }
 }
