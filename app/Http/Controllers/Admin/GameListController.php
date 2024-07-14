@@ -9,28 +9,14 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 class GameListController extends Controller
 {
-    //     public function index()
-    // {
-    //     // Eager load game type and product relationships
-    //     $games = GameList::with(['gameType', 'product'])->get();
-
-    //     return view('admin.game_list.index', compact('games'));
-    // }
-
-    // public function index()
-    // {
-    //     // Eager load game type and product relationships and paginate the results
-    //     $games = GameList::with(['gameType', 'product'])->paginate(7); // Adjust the number as needed
-
-    //     return view('admin.game_list.index', compact('games'));
-    // }
     public function index(Request $request)
     {
-        $games = GameList::with(['gameType', 'product'])->get();
+        $games = GameList::with(['gameType', 'product'])->count();
+
         if ($request->ajax()) {
             $data = GameList::with(['gameType', 'product']);
             return Datatables::of($data)
-                ->addIndexColumn() // This will automatically add a column called DT_RowIndex
+                ->addIndexColumn() 
                 ->addColumn('game_type', function ($row) {
                     return $row->gameType->name ?? 'N/A';
                 })
