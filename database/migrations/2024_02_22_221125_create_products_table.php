@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('short_name')->nullable();
             $table->integer('order')->default(0);
             $table->integer('status')->default(1);
+            $table->boolean('game_list_status')->default(1); // 1 game list ok / 0 lobby
             $table->timestamps();
         });
     }
