@@ -12,19 +12,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
-        //$this->call([
-            // PermissionsTableSeeder::class,
-            //RolesTableSeeder::class,
-            //PermissionRoleTableSeeder::class,
-            //UsersTableSeeder::class,
-            //RoleUserTableSeeder::class,
-            //BankTableSeeder::class,
-            //GameTypeTableSeeder::class,
-            //ProductTableSeeder::class,
-            //GameTypeProductTableSeeder::class,
-            //ProductTableSeeder::class,
-        //]);
         $this->call([
             PermissionsTableSeeder::class,
             RolesTableSeeder::class,
@@ -77,6 +64,7 @@ class DatabaseSeeder extends Seeder
             YesGetRichTablesSeeder::class,
             Live22SMTablesSeeder::class,
             BannerAdsSeeder::class,
+            PaymentTypeTableSeeder::class
         ]);
 
     }

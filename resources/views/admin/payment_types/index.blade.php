@@ -22,12 +22,12 @@
       <div class="card-header pb-0">
         <div class="d-lg-flex">
           <div>
-            <h5 class="mb-0">Payment Dashboards</h5>
+            <h5 class="mb-0">Bank Account</h5>
 
           </div>
           <div class="ms-auto my-auto mt-lg-0 mt-4">
             <div class="ms-auto my-auto">
-              <a href="{{ route('admin.payments.create') }}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; New Payment</a>
+              <a href="{{ route('admin.paymentTypes.create') }}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; New Bank</a>
               <button class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1" data-type="csv" type="button" name="button">Export</button>
             </div>
           </div>
@@ -38,35 +38,31 @@
           <thead class="thead-light">
             <tr>
               <th>#</th>
-              <th>Payment Method</th>
-              <th>Payment No</th>
-              <th>Receiver Name</th>
-              <th>Created At</th>
-              {{-- <th>Updated At</th> --}}
+              <th>Account Name</th>
+              <th>Account No</th>
+              <th>Payment Type</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            @foreach($payments as $key => $payment)
+            @foreach($paymentTypes as $payment)
             <tr>
-              <td class="text-sm font-weight-normal">{{ ++$key }}</td>
+              <td class="text-sm font-weight-normal">{{ $loop->iteration }}</td>
               <td>
-                {{ $payment->payment_method }}
+                {{ $payment->account_name }}
               </td>
               <td>
-                {{ $payment->phone }}
+                {{ $payment->account_no }}
               </td>
               <td>
-                {{ $payment->receiver_name }}
+                {{ $payment->paymentType->name }}
               </td>
-              <td class="text-sm font-weight-normal">{{ $payment->created_at->format('F j, Y') }}</td>
-              {{-- <td class="text-sm font-weight-normal">{{ $payment->updated_at->format('F j, Y') }}</td> --}}
               <td>
-                <a href="{{ route('admin.payments.edit', $payment->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Edit Payment"><i class="material-icons-round text-secondary position-relative text-lg">mode_edit</i></a>
-                <a href="{{ route('admin.payments.show', $payment->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Preview Payment Detail">
+                <a href="{{ route('admin.paymentTypes.edit', $payment->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Edit Payment"><i class="material-icons-round text-secondary position-relative text-lg">mode_edit</i></a>
+                <a href="{{ route('admin.paymentTypes.show', $payment->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Preview Payment Detail">
                   <i class="material-icons text-secondary position-relative text-lg">visibility</i>
                 </a>
-                <form class="d-inline" action="{{ route('admin.payments.destroy', $payment->id) }}" method="POST">
+                <form class="d-inline" action="{{ route('admin.paymentTypes.destroy', $payment->id) }}" method="POST">
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="transparent-btn" data-bs-toggle="tooltip" data-bs-original-title="Delete Payment">
