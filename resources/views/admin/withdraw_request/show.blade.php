@@ -66,7 +66,7 @@
       <!-- Card header -->
       
       <div class="card-body">
-        <form action="{{ route('admin.agent.statusChange',$withdraw->id) }}" method="POST">
+        <form action="{{ route('admin.agent.withdrawStatus',$withdraw->id) }}" method="POST">
           @csrf
           <div class="row">
           <input type="text" class="form-control" name="player" value="{{ $withdraw->user->id }}" readonly>

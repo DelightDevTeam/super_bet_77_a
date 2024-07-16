@@ -156,12 +156,11 @@ class PlayerController extends Controller
     public function destroy(User $player)
     {
         abort_if(
-            Gate::denies('user_delete') || !$this->ifChildOfParent(request()->user()->id, $player->id),
+            Gate::denies('player_delete') || !$this->ifChildOfParent(request()->user()->id, $player->id),
             Response::HTTP_FORBIDDEN,
             '403 Forbidden |You cannot  Access this page because you do not have permission'
         );
-        //$player->destroy();
-        User::destroy($player->id);
+       $player->delete();
 
         return redirect()->route('admin.player.index')->with('success', 'User deleted successfully');
     }

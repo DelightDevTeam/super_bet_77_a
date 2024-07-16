@@ -24,7 +24,7 @@ class PaymentTypeController extends Controller
     {
         $player = Auth::user();
 
-        $data = UserPayment::where('user_id', $player->agent_id)->get();
+        $data = UserPayment::with('paymentType')->where('user_id', $player->agent_id)->get();
 
         return $this->success($data, 'Get Agent Payment Type List');
     }

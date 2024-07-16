@@ -56,18 +56,30 @@
         <span class="sidenav-normal  ms-2  ps-1">Transfer Log</span>
       </a>
     </li>
+    @can('deposit')
+    <li class="nav-item">
+      <a class="nav-link text-white " href="{{ route('admin.agent.deposit')}}">
+        <span class="sidenav-mini-icon"> <i class="fas fa-right-left"></i> </span>
+        <span class="sidenav-normal  ms-2  ps-1">Deposit Request</span>
+      </a>
+    </li>
+    @endcan
+    @can('withdraw')
     <li class="nav-item">
       <a class="nav-link text-white " href="{{ route('admin.agent.withdraw')}}">
         <span class="sidenav-mini-icon"> <i class="fas fa-right-left"></i> </span>
         <span class="sidenav-normal  ms-2  ps-1">WithDraw Request</span>
       </a>
-    </li>
+    </li> 
+    @endcan
+    @can('bank')
     <li class="nav-item ">
       <a class="nav-link text-white " href="{{ route('admin.paymentTypes.index') }}">
         <span class="sidenav-mini-icon"> <i class="fa-solid fa-panorama"></i> </span>
         <span class="sidenav-normal  ms-2  ps-1"> Bank Account </span>
       </a>
-    </li>'
+    </li>
+    @endcan
     <hr class="horizontal light mt-0">
     @can('admin_access')
     <li class="nav-item">

@@ -30,8 +30,7 @@
     <table class="table table-flush" id="users-search">
       <thead class="thead-light">
         <th>#</th>
-        <th>Name</th>
-        <th>Phone</th>
+        <th>PlayerId</th>
         <th>Requested Amount</th>
         <th>Payment Method</th>
         <th>Bank Account Name</th>
@@ -43,17 +42,16 @@
       <tbody>
         @foreach ($deposits as $deposit)
         <tr>
-          <td>{{ $loop->index + 1 }}</td>
+          <td>{{ $loop->iteration }}</td>
           <td>
-            <span class="d-block">{{ $withdraw->user->name }}</span>
+            <span class="d-block">{{ $deposit->user->user_name }}</span>
           </td>
-          <td>{{ $deposit->user->phone }}</td>
           <td>{{ number_format($deposit->amount) }}</td>
-          <td>{{ $deposit->paymentType->name }}</td>
-          <td>{{$deposit->account_name}}</td>
-          <td>{{$deposit->account_name}}</td>
+          <td>{{ $deposit->userPayment->paymentType->name }}</td>
+          <td>{{$deposit->userPayment->account_name}}</td>
+          <td>{{$deposit->userPayment->account_no}}</td>
           <td>
-          <span class="badge text-bg-{{ $withdraw->status == 0 ? 'danger' : 'success' }} text-white mb-2">{{ $deposit->status == 0 ? "pending" : "done" }}</span>
+          <span class="badge text-bg-{{ $deposit->status == 0 ? 'danger' : 'success' }} text-white mb-2">{{ $deposit->status == 0 ? "pending" : "done" }}</span>
           </td>
 
           <td>{{ $deposit->created_at->format('d-m-Y') }}</td>

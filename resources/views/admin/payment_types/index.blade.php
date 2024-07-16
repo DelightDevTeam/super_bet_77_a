@@ -59,16 +59,7 @@
               </td>
               <td>
                 <a href="{{ route('admin.paymentTypes.edit', $payment->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Edit Payment"><i class="material-icons-round text-secondary position-relative text-lg">mode_edit</i></a>
-                <a href="{{ route('admin.paymentTypes.show', $payment->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Preview Payment Detail">
-                  <i class="material-icons text-secondary position-relative text-lg">visibility</i>
-                </a>
-                <form class="d-inline" action="{{ route('admin.paymentTypes.destroy', $payment->id) }}" method="POST">
-                  @csrf
-                  @method('DELETE')
-                  <button type="submit" class="transparent-btn" data-bs-toggle="tooltip" data-bs-original-title="Delete Payment">
-                    <i class="material-icons text-secondary position-relative text-lg">delete</i>
-                  </button>
-                </form>
+                
               </td>
             </tr>
             @endforeach

@@ -57,9 +57,10 @@ class PaymentTypeController extends Controller
      */
     public function edit(string $id)
     {
-        $paymentType = PaymentType::where('id', $id)->first();
+        $userPayment = UserPayment::where('id', $id)->first();
+        $paymentTypes = PaymentType::all();
 
-        return view('admin.paymentType.edit', compact('paymentType'));
+        return view('admin.payment_types.edit', compact('paymentTypes', 'userPayment'));
     }
 
     /**
@@ -67,43 +68,24 @@ class PaymentTypeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $paymentType = PaymentType::findOrFail($id);
+        $userPayment = UserPayment::findOrFail($id);
 
-        $this->updatePaymentTypeImages($paymentType, $request->image);
+        $userPayment->update($request->all());
 
-        return redirect()->route('admin.paymentType.index');
+        return redirect()->route('admin.paymentTypes.index');
     }
 
-    private function updatePaymentTypeImages(PaymentType $paymentType, $images)
-    {
-        if (! $images) {
-            return;
-        }
-
-        $paymentType->paymentImages()->delete();
-
-        foreach ($images as $image) {
-            $imageName = $this->generateUniqueImageName($image);
-            $image->move('assets/img/paymentType/banners', $imageName);
-            $paymentImages[] = [
-                'payment_type_id' => $paymentType->id,
-                'image' => $imageName,
-            ];
-        }
-
-        $paymentType->paymentImages()->createMany($paymentImages);
-    }
-
-    private function generateUniqueImageName(UploadedFile $image)
-    {
-        return time().'-'.uniqid().'.'.$image->getClientOriginalExtension();
-    }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $userPayment = UserPayment::findOrFail($id);
+
+        $userPayment->delete();
+
+        return redirect()->route('admin.paymentTypes.index');
+
     }
 }

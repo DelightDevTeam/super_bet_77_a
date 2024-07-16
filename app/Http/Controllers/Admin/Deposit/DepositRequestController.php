@@ -16,16 +16,16 @@ class DepositRequestController extends Controller
 {
     public function index()
     {
-        $deposits = DepositRequest::with(['user', 'paymentType'])->get();
+        $deposits = DepositRequest::with(['user', 'userPayment'])->get();
 
         return view('admin.deposit_request.index', compact('deposits'));
     }
 
     public function show($id)
     {
-        $withdraw = WithDrawRequest::find($id);
+        $deposit = DepositRequest::find($id);
 
-        return view('admin.deposit_request.show', compact('withdraw'));
+        return view('admin.deposit_request.show', compact('deposit'));
     }
 
     public function statusChange(Request $request, DepositRequest $deposit)
@@ -48,7 +48,7 @@ class DepositRequestController extends Controller
 
             app(WalletService::class)->transfer($agent, $player, $request->amount, TransactionName::DebitTransfer);
 
-            return back()->with('success', 'Agent status switch successfully!');
+            return redirect()->route('admin.agent.deposit')->with('success', 'Agent status switch successfully!');
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
         }
