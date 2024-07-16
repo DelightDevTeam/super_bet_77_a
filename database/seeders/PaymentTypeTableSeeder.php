@@ -14,12 +14,44 @@ class PaymentTypeTableSeeder extends Seeder
     {
         $types = [
             [
-                'name' => 'Kpay Account',
+                'name' => 'KBZ Pay',
                 'image' => 'kpay.png',
             ],
             [
-                'name' => 'Wave Account',
+                'name' => 'Wave Pay',
                 'image' => 'wave.png',
+            ],
+            [
+                'name' => 'AYA Bank',
+                'image' => 'ayabank.png',
+            ],
+            [
+                'name' => 'AYA Pay',
+                'image' => 'ayapay.png',
+            ],
+            [
+                'name' => 'CB Bank',
+                'image' => 'cbbank.png',
+            ],
+            [
+                'name' => 'CB Pay',
+                'image' => 'cbpay.png',
+            ],
+            [
+                'name' => 'MAB Bank',
+                'image' => 'mabbank.png',
+            ],
+            [
+                'name' => 'UAB Bank',
+                'image' => 'uabbank.png',
+            ],
+            [
+                'name' => 'UAB Pay',
+                'image' => 'uabpay.png',
+            ],
+            [
+                'name' => 'YOMA Bank',
+                'image' => 'yomabank.png',
             ],
         ];
 
