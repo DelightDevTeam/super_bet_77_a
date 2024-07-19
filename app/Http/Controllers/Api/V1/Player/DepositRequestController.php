@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Player;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\DepositRequest;
+use App\Http\Resources\DepositLogResource;
 use App\Models\DepositRequest as ModelsDepositRequest;
 use App\Traits\HttpResponses;
 use Exception;
@@ -43,7 +44,7 @@ class DepositRequestController extends Controller
     {
         $deposit = ModelsDepositRequest::where('user_id', Auth::id())->get();
 
-        return $this->success($deposit);
+        return $this->success(DepositLogResource::collection($deposit));
     }
 
 }
