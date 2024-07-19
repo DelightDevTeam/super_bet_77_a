@@ -42,7 +42,7 @@ class DepositRequestController extends Controller
 
     public function log()
     {
-        $deposit = ModelsDepositRequest::where('user_id', Auth::id())->get();
+        $deposit = ModelsDepositRequest::with('userPayment')->where('user_id', Auth::id())->get();
 
         return $this->success(DepositLogResource::collection($deposit));
     }
