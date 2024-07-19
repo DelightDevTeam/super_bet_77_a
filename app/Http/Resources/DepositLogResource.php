@@ -16,7 +16,7 @@ class DepositLogResource extends JsonResource
     {
         return [
             "id" => $this->id,  // Gets the 'id' property of the object
-            "payment_type" => $this->usePayment->name,  // Gets the 'name' property from the related 'paymentType' object
+            "payment_type" => $this->usePayment->paymentType->name,  // Gets the 'name' property from the related 'paymentType' object
             "account_name" => $this->account_name,  // Gets the 'account_name' property of the object
             "account_no" => $this->account_no,  // Gets the 'account_no' property of the object
             "amount" => $this->amount,  // Gets the 'amount' property of the object
