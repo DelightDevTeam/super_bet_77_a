@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Player;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\WithdrawRequest;
+use App\Http\Resources\HistoryResource;
 use App\Models\WithDrawRequest as ModelsWithDrawRequest;
 use App\Traits\HttpResponses;
 use Exception;
@@ -34,6 +35,7 @@ class WithDrawRequestController extends Controller
     {
         $withdraw = ModelsWithDrawRequest::where('user_id', Auth::id())->get();
 
-        return $this->success($withdraw);
+        return $this->success(HistoryResource::collection($withdraw));
+        // return $this->success($withdraw);
     }
 }
