@@ -27,7 +27,6 @@ class WagerController extends Controller
         $user = auth()->user();
 
         $transactions = $this->makeJoinTable()->select(
-            'products.id as id',
             'products.name as product_name',
             DB::raw('MIN(reports.settlement_date) as from_date'),
             DB::raw('MAX(reports.settlement_date) as to_date'),
