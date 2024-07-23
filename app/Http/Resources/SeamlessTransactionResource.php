@@ -15,7 +15,7 @@ class SeamlessTransactionResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "id" => $this->index,
+            "id" => $this->id,
             "from_date" => $this->from_date,
             "to_date" => $this->to_date,
             "product" => $this->product_name,

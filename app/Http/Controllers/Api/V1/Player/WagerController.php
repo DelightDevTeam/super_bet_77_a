@@ -28,6 +28,7 @@ class WagerController extends Controller
 
         $transactions = $this->makeJoinTable()->select(
             'products.name as product_name',
+            DB::raw('reports.id as id'),
             DB::raw('MIN(reports.settlement_date) as from_date'),
             DB::raw('MAX(reports.settlement_date) as to_date'),
             DB::raw('COUNT(product_code) as total_count'),
