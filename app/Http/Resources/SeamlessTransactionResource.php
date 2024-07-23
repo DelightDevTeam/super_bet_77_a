@@ -14,10 +14,8 @@ class SeamlessTransactionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        if (is_array($this->data)) {
-            foreach ($this->data as $key => $item) {
-                $this->data[$key]->id = $key + 1; // Assign a unique ID
-            }
+        for(i=0; i < count($this->data); i++){
+            return $this->data[i]->id;
         }
         return [
             "id" => $this->id,
