@@ -98,14 +98,27 @@ class ReportController extends Controller
             return view('report.view', compact('reports'));
     }
 
-    private function makeJoinTable()
-    {
-        $query = User::query()->roleLimited();
-        $query->join('reports', 'reports.member_name', '=', 'users.user_name')
-            ->join('products', 'reports.product_code', '=', 'products.code')
-            ->where('reports.status', '101');
+    // private function makeJoinTable()
+    // {
+    //     $query = User::query()->roleLimited();
+    //     $query->join('reports', 'reports.member_name', '=', 'users.user_name')
+    //         ->join('products', 'reports.product_code', '=', 'products.code')
+    //         ->where('reports.status', '101');
 
-        return $query;
-    }
+    //     return $query;
+    // }
+
+    private function makeJoinTable()
+{
+    $query = User::query()->roleLimited();
+    $query->join('reports', 'reports.member_name', '=', 'users.user_name')
+          ->join('products', 'reports.product_code', '=', 'products.code')
+          ->join('game_lists', 'products.product_id', '=', 'game_lists.product_id')
+          ->select('reports.*', 'game_lists.code as game_code', 'game_lists.name as game_name')
+          ->where('reports.status', 101);
+
+    return $query;
+}
+
 
 }
