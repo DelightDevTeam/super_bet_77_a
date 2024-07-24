@@ -62,7 +62,7 @@
 <div class="row">
   <div class="col-12">
     <div class="container mb-3">
-      <a class="btn btn-icon btn-2 btn-primary float-end me-5" href="{{ route('admin.payments.index') }}">
+      <a class="btn btn-icon btn-2 btn-primary float-end me-5" href="{{ route('admin.paymentTypes.index') }}">
         <span class="btn-inner--icon mt-1"><i class="material-icons">arrow_back</i>Back</span>
       </a>
     </div>
@@ -72,23 +72,37 @@
           <div class="card z-index-0 fadeIn3 fadeInBottom">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-primary shadow-primary border-radius-lg py-2 pe-1">
-                <h4 class="text-white font-weight-bolder text-center mb-2">New Payment Create</h4>
+                <h4 class="text-white font-weight-bolder text-center mb-2">New Bank Create</h4>
               </div>
             </div>
             <div class="card-body">
-              <form role="form" class="text-start" action="{{ route('admin.payments.store') }}" method="post">
+              <form action="{{ route('admin.paymentTypes.store') }}" method="post">
                 @csrf
                 <div class="custom-form-group">
                   <label for="title">Payment Method</label>
-                  <input type="text" class="form-control" id="inputEmail3" name="payment_method" placeholder="Enter Payment Method">
+                  <select name="payment_type_id">
+                    <option disabled>Select Payment Method</option>
+                    @foreach($paymentTypes as $payment)
+                    <option value="{{$payment->id}}">{{ $payment->name }}</option>
+                    @endforeach
+                  </select>
+                  @error('payment_type_id')
+                  <span class="text-danger d-block">*{{ $message }}</span>
+                  @enderror
                 </div>
                 <div class="custom-form-group">
-                  <label for="phone">Payment No</label>
-                  <input type="number" class="form-control" id="phone" name="phone" placeholder="Enter Phone">
+                  <label for="phone">Account Name</label>
+                  <input type="text" class="form-control" id="account_name" name="account_name" placeholder="Enter Account Name">
+                  @error('account_name')
+                  <span class="text-danger d-block">*{{ $message }}</span>
+                  @enderror
                 </div>
                 <div class="custom-form-group">
-                  <label for="name">Receiver Name</label>
-                  <input type="text" class="form-control" id="name" name="receiver_name" placeholder="Enter Receiver Name">
+                  <label for="name">Account No</label>
+                  <input type="number" class="form-control" id="account_no" name="account_no" placeholder="Enter Account No">
+                  @error('account_no')
+                  <span class="text-danger d-block">*{{ $message }}</span>
+                  @enderror
                 </div>
                 <div class="custom-form-group">
                   <button class="btn btn-primary" type="submit">Create</button>

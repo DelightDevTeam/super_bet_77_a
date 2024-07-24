@@ -31,7 +31,7 @@ class UsersTableSeeder extends Seeder
             'name'           => $name,
             'user_name'      => $user_name,
             'phone'          => $phone,
-            'password'       => Hash::make('delightmyanmar'),
+        'password'       => Hash::make('delightmyanmar'),
             'agent_id'      => $parent_id,
             'status'         => 1,
             'is_changed_password' => 1,

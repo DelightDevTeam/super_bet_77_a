@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\Api\V1\BannerController;
-use App\Http\Controllers\Admin\BannerTextController;
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Bank\BankController;
 use App\Http\Controllers\Api\V1\Game\GameController;
@@ -13,7 +12,7 @@ use App\Http\Controllers\Api\V1\Webhook\BonusController;
 use App\Http\Controllers\Api\V1\Webhook\BuyInController;
 use App\Http\Controllers\Api\V1\Webhook\BuyOutController;
 use App\Http\Controllers\Api\V1\Game\LaunchGameController;
-use App\Http\Controllers\Api\V1\Player\WithDrawController;
+use App\Http\Controllers\Api\V1\Player\WithDrawRequestController;
 use App\Http\Controllers\Api\V1\Webhook\JackPotController;
 use App\Http\Controllers\Api\V1\Webhook\PushBetController;
 use App\Http\Controllers\Api\V1\Webhook\PlaceBetController;
@@ -24,6 +23,8 @@ use App\Http\Controllers\Api\V1\Webhook\GameResultController;
 use App\Http\Controllers\Api\V1\Webhook\GetBalanceController;
 use App\Http\Controllers\Api\V1\Webhook\MobileLoginController;
 use App\Http\Controllers\Api\V1\Game\DirectLaunchGameController;
+use App\Http\Controllers\Api\V1\Player\DepositRequestController;
+use App\Http\Controllers\Api\V1\Player\PaymentTypeController;
 use App\Http\Controllers\Api\V1\Player\PlayerTransactionLogController;
 
 //login route post
@@ -73,9 +74,14 @@ Route::group(["middleware" => ['auth:sanctum']], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('changePassword', [AuthController::class, 'changePassword']);
     Route::post('profile', [AuthController::class, 'profile']);
+    Route::get('payment-type', [PaymentTypeController::class, 'get']);
+    Route::get('agent-payment-type', [PaymentTypeController::class, 'getAgentPayment']);
 
     Route::group(['prefix' => 'transaction'], function () {
-        Route::post('withdraw', [WithDrawController::class, 'withdraw']);
+        Route::post('withdraw', [WithDrawRequestController::class, 'withdraw']);
+        Route::get('withdraw-log', [WithDrawRequestController::class, 'log']);
+        Route::post('deposit', [DepositRequestController::class, 'deposit']);
+        Route::get('deposit-log', [DepositRequestController::class, 'log']);
         Route::get('player-transactionlog', [PlayerTransactionLogController::class, 'index']);
     });
 
