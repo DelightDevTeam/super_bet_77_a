@@ -54,32 +54,63 @@ class ReportController extends Controller
         return view('report.show', compact('reports'));
     }
 
+    // amk 
     public function detail(Request $request, int $userId)
-    {
+{
+    $report = $this->makeJoinTable()
+        ->select(
+            'products.name as product_name',
+            'users.user_name',
+            'users.id as user_id',
+            'reports.valid_bet_amount',
+            'reports.bet_amount',
+            'reports.payout_amount',
+            'reports.settlement_date',
+            'game_lists.code as game_code',
+            'game_lists.name as game_list_name'
+        )
+        ->where('users.id', $userId)
+        ->when($request->has('product_code'), function ($query) use ($request) {
+            $query->where('reports.product_code', $request->product_code);
+        })
+        ->when($request->has('fromDate') && $request->has('toDate'), function ($query) use ($request) {
+            $query->whereBetween('reports.settlement_date', [$request->fromDate, $request->toDate]);
+        })
+        ->get();
 
-        $report = $this->makeJoinTable()
-            ->select(
-                'products.name as product_name',
-                'users.user_name',
-                'users.id as user_id',
-                'reports.valid_bet_amount',
-                'reports.bet_amount',
-                'reports.payout_amount',
-                'reports.settlement_date'
-            )
-            ->where('users.id', $request->user_id)
-            ->when(isset($request->product_code), function ($query) use ($request) {
-                $query->where('reports.product_code', $request->product_code);
-            })
-            ->when(isset($request->fromDate) && isset($request->toDate), function ($query) use ($request) {
-                $query->whereBetween('reports.settlement_date', [$request->fromDate, $request->toDate]);
-            })
-            ->get();
+    $player = User::find($userId);
 
-        $player = User::find($userId);
+    return view('report.detail', compact('report', 'player'));
+}
 
-        return view('report.detail', compact('report', 'player'));
-    }
+
+        // sophia 
+    // public function detail(Request $request, int $userId)
+    // {
+
+    //     $report = $this->makeJoinTable()
+    //         ->select(
+    //             'products.name as product_name',
+    //             'users.user_name',
+    //             'users.id as user_id',
+    //             'reports.valid_bet_amount',
+    //             'reports.bet_amount',
+    //             'reports.payout_amount',
+    //             'reports.settlement_date'
+    //         )
+    //         ->where('users.id', $request->user_id)
+    //         ->when(isset($request->product_code), function ($query) use ($request) {
+    //             $query->where('reports.product_code', $request->product_code);
+    //         })
+    //         ->when(isset($request->fromDate) && isset($request->toDate), function ($query) use ($request) {
+    //             $query->whereBetween('reports.settlement_date', [$request->fromDate, $request->toDate]);
+    //         })
+    //         ->get();
+
+    //     $player = User::find($userId);
+
+    //     return view('report.detail', compact('report', 'player'));
+    // }
 
     public function view($user_name)
     {
@@ -97,16 +128,28 @@ class ReportController extends Controller
 
             return view('report.view', compact('reports'));
     }
-
+    // amk 
     private function makeJoinTable()
-    {
-        $query = User::query()->roleLimited();
-        $query->join('reports', 'reports.member_name', '=', 'users.user_name')
-            ->join('products', 'reports.product_code', '=', 'products.code')
-            ->where('reports.status', '101');
+{
+    $query = User::query()->roleLimited();
+    $query->join('reports', 'reports.member_name', '=', 'users.user_name')
+          ->join('products', 'reports.product_code', '=', 'products.code')
+          ->join('game_lists', 'reports.game_name', '=', 'game_lists.code')
+          ->where('reports.status', '101');
 
-        return $query;
-    }
+    return $query;
+}
+
+    // sophia
+    // private function makeJoinTable()
+    // {
+    //     $query = User::query()->roleLimited();
+    //     $query->join('reports', 'reports.member_name', '=', 'users.user_name')
+    //         ->join('products', 'reports.product_code', '=', 'products.code')
+    //         ->where('reports.status', '101');
+
+    //     return $query;
+    // }
 
 //     private function makeJoinTable()
 // {
@@ -119,6 +162,21 @@ class ReportController extends Controller
 
 //     return $query;
 // }
+
+/* 
+
+SELECT 
+    reports.*,
+    game_lists.code AS game_code,
+    game_lists.name AS game_name
+FROM 
+    reports
+JOIN 
+    game_lists ON reports.game_name = game_lists.code
+WHERE 
+    reports.status = '101';
+
+*/
 
 
 }

@@ -73,6 +73,9 @@
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Result
                                             Product Type
                                         </th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Result
+                                            GameName
+                                        </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Valid Bet
                                             Amount
                                         </th>
@@ -92,6 +95,7 @@
                                     <tr>
                                         <td class="text-sm font-weight-normal">{{$detail->settlement_date}}</td>
                                         <td class="text-sm font-weight-normal">{{$detail->product_name}}</td>
+                                        <td class="text-sm font-weight-normal">{{$detail->game_list_name}}</td>
                                         <td class="text-sm font-weight-normal">{{$detail->valid_bet_amount}}</td>
                                         <td class="text-sm font-weight-normal">{{$detail->bet_amount}}</td>
                                         <td class="text-sm font-weight-normal">{{$detail->payout_amount}}</td>
