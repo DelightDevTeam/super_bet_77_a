@@ -45,8 +45,8 @@
 <!-- jQuery -->
 <script src="{{asset('admin_app/assets/js/jquery.min.js')}}"></script>
 <!-- DataTables JS -->
-<script src="{{asset('admin_app/assets/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('admin_app/assets/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('admin_app/assets/js/jquery.datatable.min.js')}}"></script>
+<script src="{{asset('admin_app/assets/js/datatable.bootstarp.min.js')}}"></script>
 <script>
 $(document).ready(function() {
     $('#users-search').DataTable({
@@ -74,4 +74,6 @@ $(document).ready(function() {
     });
 });
 </script>
+
+
 @endsection
