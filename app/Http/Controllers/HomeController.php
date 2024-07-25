@@ -23,7 +23,6 @@ class HomeController extends Controller
      *
      * @return void
      */
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -42,24 +41,24 @@ class HomeController extends Controller
         $getUserCounts = function ($roleTitle) use ($isAdmin, $user) {
             return User::whereHas('roles', function ($query) use ($roleTitle) {
                 $query->where('title', '=', $roleTitle);
-            })->when(!$isAdmin, function ($query) use ($user) {
+            })->when(! $isAdmin, function ($query) use ($user) {
                 $query->where('agent_id', $user->id);
             })->count();
         };
-        $deposit = Auth::user()->transactions()->with("targetUser")
-        ->select(DB::raw('SUM(transactions.amount) as amount')
-        )
-        ->where('transactions.type','deposit')
-        ->first();
+        $deposit = Auth::user()->transactions()->with('targetUser')
+            ->select(DB::raw('SUM(transactions.amount) as amount')
+            )
+            ->where('transactions.type', 'deposit')
+            ->first();
 
-        $withdraw = Auth::user()->transactions()->with("targetUser")->select(
+        $withdraw = Auth::user()->transactions()->with('targetUser')->select(
             DB::raw('SUM(transactions.amount) as amount'),
-        )->where('transactions.type','withdraw')->first();
-      
+        )->where('transactions.type', 'withdraw')->first();
+
         $agent_count = $getUserCounts('Agent');
         $player_count = $getUserCounts('Player');
-        
-        $provider_balance = (new AppSetting())->provider_initial_balance + SeamlessTransaction::sum("transaction_amount");
+
+        $provider_balance = (new AppSetting)->provider_initial_balance + SeamlessTransaction::sum('transaction_amount');
 
         return view('admin.dashboard', compact(
             'provider_balance',
@@ -81,10 +80,10 @@ class HomeController extends Controller
         $request->validate([
             'balance' => 'required|numeric',
         ]);
-    
+
         app(WalletService::class)->deposit($request->user(), $request->balance, TransactionName::CapitalDeposit);
 
-        return back()->with('success', "Add New Balance Successfully.");
+        return back()->with('success', 'Add New Balance Successfully.');
     }
 
     public function logs($id)

@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class WithDrawRequestController extends Controller
 {
-
     use HttpResponses;
 
     public function withdraw(WithdrawRequest $request)
@@ -25,6 +24,7 @@ class WithDrawRequestController extends Controller
                 $inputs,
                 ['user_id' => $player->id, 'agent_id' => $player->agent_id]
             ));
+
             return $this->success($withdraw, 'Withdraw Request Success');
         } catch (Exception $e) {
             $this->error('', $e->getMessage(), 401);

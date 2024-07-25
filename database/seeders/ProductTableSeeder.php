@@ -24,7 +24,7 @@ class ProductTableSeeder extends Seeder
                 'name' => 'SBO',
                 'short_name' => 'SBO',
                 'order' => 11,
-                'game_list_status' => '0'
+                'game_list_status' => '0',
             ],
             [
                 'code' => '1013',
@@ -37,7 +37,7 @@ class ProductTableSeeder extends Seeder
                 'name' => 'YEE Bet',
                 'short_name' => 'YEE Bet',
                 'order' => 13,
-                'game_list_status' => '0'
+                'game_list_status' => '0',
             ],
             [
                 'code' => '1020',
@@ -64,7 +64,7 @@ class ProductTableSeeder extends Seeder
                 'name' => 'Vivo Gaming',
                 'short_name' => 'VG',
                 'order' => 17,
-                'game_list_status' => '0'
+                'game_list_status' => '0',
 
             ],
             [
@@ -205,7 +205,7 @@ class ProductTableSeeder extends Seeder
                 'name' => 'Asia Gaming',
                 'short_name' => 'AsiaGaming',
                 'order' => 36,
-                'game_list_status' => '0'
+                'game_list_status' => '0',
 
             ],
             [
@@ -262,7 +262,7 @@ class ProductTableSeeder extends Seeder
                 'name' => 'King 855',
                 'short_name' => 'K855',
                 'order' => 40,
-                'game_list_status' => '0'
+                'game_list_status' => '0',
             ],
             [
                 'code' => '1041',
@@ -290,7 +290,7 @@ class ProductTableSeeder extends Seeder
                 'name' => 'Simple Play	',
                 'short_name' => 'SP',
                 'order' => 44,
-                'game_list_status' => '0'
+                'game_list_status' => '0',
 
             ],
             [
@@ -304,7 +304,7 @@ class ProductTableSeeder extends Seeder
                 'name' => 'SSports',
                 'short_name' => 'Sport',
                 'order' => 46,
-                'game_list_status' => '0'
+                'game_list_status' => '0',
 
             ],
             [

@@ -32,7 +32,7 @@ class DepositRequestController extends Controller
     {
 
         $request->validate([
-            'status' => 'required|in:0,1,2'
+            'status' => 'required|in:0,1,2',
         ]);
 
         try {
@@ -43,7 +43,7 @@ class DepositRequestController extends Controller
             }
 
             $deposit->update([
-                'status' => $request->status
+                'status' => $request->status,
             ]);
 
             app(WalletService::class)->transfer($agent, $player, $request->amount, TransactionName::DebitTransfer);
@@ -53,5 +53,4 @@ class DepositRequestController extends Controller
             return back()->with('error', $e->getMessage());
         }
     }
-
 }

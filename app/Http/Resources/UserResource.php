@@ -24,8 +24,8 @@ class UserResource extends JsonResource
         ];
 
         return [
-            "user" => $user,
-            "token" => $this->createToken($this->user_name)->plainTextToken
+            'user' => $user,
+            'token' => $this->createToken($this->user_name)->plainTextToken,
         ];
     }
 }

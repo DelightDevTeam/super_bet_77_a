@@ -26,7 +26,4 @@ class TransferLogRequest extends FormRequest
             'amount' => 'required|numeric',
         ];
     }
-
-   
-
 }

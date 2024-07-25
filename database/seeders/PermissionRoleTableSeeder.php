@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin\Role;
-use Illuminate\Database\Seeder;
 use App\Models\Admin\Permission;
+use App\Models\Admin\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 
 class PermissionRoleTableSeeder extends Seeder
 {
@@ -41,7 +41,7 @@ class PermissionRoleTableSeeder extends Seeder
             'transfer_log',
             'make_transfer',
             'game_type_access',
-            'player_index'
+            'player_index',
         ]);
         Role::findOrFail(1)->permissions()->sync($admin_permissions->pluck('id'));
         // Admin permissions
@@ -67,7 +67,7 @@ class PermissionRoleTableSeeder extends Seeder
             'make_transfer',
             'withdraw',
             'deposit',
-            'bank'
+            'bank',
         ])->pluck('id');
 
         Role::findOrFail(2)->permissions()->sync($agent_permissions);

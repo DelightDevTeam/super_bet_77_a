@@ -9,5 +9,5 @@ class Bank extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','digit'];
+    protected $fillable = ['name', 'digit'];
 }

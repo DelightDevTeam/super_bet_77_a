@@ -1,14 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\Report;
-use App\Models\User;
-use App\Models\Report;
-use Illuminate\Http\Request;
-use App\Models\Admin\Product;
-use Illuminate\Support\Facades\DB;
+
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Admin\Product;
+use App\Models\Report;
+use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class TestReportController extends Controller
 {
@@ -21,7 +22,7 @@ class TestReportController extends Controller
                 DB::raw('SUM(reports.bet_amount) as total_bet_amount'),
                 DB::raw('SUM(reports.valid_bet_amount) as total_valid_bet_amount'),
                 DB::raw('SUM(reports.payout_amount) as total_payout_amount'))
-            ->groupBy('product_name', 'products.code')
+                ->groupBy('product_name', 'products.code')
                 ->when(isset($request->fromDate) && isset($request->toDate), function ($query) use ($request) {
                     $query->whereBetween('reports.settlement_date', [$request->fromDate, $request->toDate]);
                 })
@@ -82,7 +83,7 @@ class TestReportController extends Controller
 
             $player = User::find($userId);
 
-            if (!$player) {
+            if (! $player) {
                 return response()->json(['error' => 'User not found.'], 404);
             }
 

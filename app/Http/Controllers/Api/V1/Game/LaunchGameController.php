@@ -1,8 +1,9 @@
 <?php
+
 namespace App\Http\Controllers\Api\V1\Game;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
@@ -66,6 +67,4 @@ class LaunchGameController extends Controller
             return response()->json(['error' => 'An unexpected error occurred', 'exception' => $e->getMessage()], 500);
         }
     }
-
-    
 }

@@ -4,20 +4,20 @@ namespace App\Models;
 
 use App\Enums\UserType;
 use App\Events\UserCreatedEvent;
-use App\Models\Admin\Role;
 use App\Models\Admin\Permission;
-use Laravel\Sanctum\HasApiTokens;
+use App\Models\Admin\Role;
 use App\Models\SeamlessTransaction;
 use Bavix\Wallet\Interfaces\Wallet;
 use Bavix\Wallet\Traits\HasWalletFloat;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements Wallet
 {
-    use HasApiTokens, HasFactory, Notifiable, HasWalletFloat;
+    use HasApiTokens, HasFactory, HasWalletFloat, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -37,7 +37,7 @@ class User extends Authenticatable implements Wallet
         'agent_id',
         'status',
         'type',
-        'is_changed_password'
+        'is_changed_password',
     ];
 
     protected $dispatchesEvents = [
@@ -45,6 +45,7 @@ class User extends Authenticatable implements Wallet
     ];
 
     protected $dates = ['created_at', 'updated_at'];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -63,9 +64,8 @@ class User extends Authenticatable implements Wallet
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        "type" => UserType::class
+        'type' => UserType::class,
     ];
-
 
     public function getIsAdminAttribute()
     {
@@ -81,6 +81,7 @@ class User extends Authenticatable implements Wallet
     {
         return $this->roles()->where('id', 3)->exists();
     }
+
     public function getIsUserAttribute()
     {
         return $this->roles()->where('id', 4)->exists();
@@ -125,7 +126,7 @@ class User extends Authenticatable implements Wallet
 
     public static function adminUser()
     {
-        return self::where("type", UserType::Admin)->first();
+        return self::where('type', UserType::Admin)->first();
     }
 
     public function seamlessTransactions()
@@ -138,23 +139,31 @@ class User extends Authenticatable implements Wallet
         return $this->hasMany(Wager::class);
     }
 
-    public function parent(){
-        return $this->belongsTo(User::class, "agent_id");
+    public function parent()
+    {
+        return $this->belongsTo(User::class, 'agent_id');
     }
 
     public function scopeRoleLimited($query)
     {
-        if (!Auth::user()->hasRole('Admin')) {
+        if (! Auth::user()->hasRole('Admin')) {
             return $query->where('agent_id', Auth::id());
         }
+
         return $query;
     }
-     public static function getPlayersByAgentId(int $agentId)
+
+    public static function getPlayersByAgentId(int $agentId)
     {
         return self::where('agent_id', $agentId)
-            ->whereHas('roles', function($query) {
+            ->whereHas('roles', function ($query) {
                 $query->where('title', '!=', 'Agent');
             })
             ->get();
+    }
+
+    public function agent()
+    {
+        return $this->belongsTo(User::class, 'agent_id');
     }
 }

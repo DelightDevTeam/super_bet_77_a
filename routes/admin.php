@@ -53,7 +53,7 @@ Route::group([
     Route::get('player-changepassword/{id}', [PlayerController::class, 'getChangePassword'])->name('player.getChangePassword');
     Route::post('player-changepassword/{id}', [PlayerController::class, 'makeChangePassword'])->name('player.makeChangePassword');
 
-    Route::get('/agent/{agentId}/players', [PlayerController::class, 'playersByAgent'])->name('playerListForAdmin');
+    Route::get('/players-list', [PlayerController::class, 'player_with_agent'])->name('playerListForAdmin');
 
     
 

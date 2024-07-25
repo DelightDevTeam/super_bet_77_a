@@ -22,7 +22,7 @@ class ReportController extends Controller
             DB::raw('SUM(reports.bet_amount) as total_bet_amount'),
             DB::raw('SUM(reports.valid_bet_amount) as total_valid_bet_amount'),
             DB::raw('SUM(reports.payout_amount) as total_payout_amount'))
-        ->groupBy('product_name', 'products.code')
+            ->groupBy('product_name', 'products.code')
             ->when(isset($request->fromDate) && isset($request->toDate), function ($query) use ($request) {
                 $query->whereBetween('reports.settlement_date', [$request->fromDate, $request->toDate]);
             })
@@ -31,7 +31,7 @@ class ReportController extends Controller
         return view('report.index', compact('reports'));
     }
 
-    public function show(Request $request ,int $code)
+    public function show(Request $request, int $code)
     {
         $reports = $this->makeJoinTable()->select(
             'users.user_name',
@@ -50,42 +50,41 @@ class ReportController extends Controller
                 $query->whereBetween('reports.settlement_date', [$request->fromDate, $request->toDate]);
             })
             ->get();
-        
+
         return view('report.show', compact('reports'));
     }
 
-    // amk 
+    // amk
     public function detail(Request $request, int $userId)
-{
-    $report = $this->makeJoinTable()
-        ->select(
-            'products.name as product_name',
-            'users.user_name',
-            'users.id as user_id',
-            'reports.wager_id',
-            'reports.valid_bet_amount',
-            'reports.bet_amount',
-            'reports.payout_amount',
-            'reports.settlement_date',
-            'game_lists.code as game_code',
-            'game_lists.name as game_list_name'
-        )
-        ->where('users.id', $userId)
-        ->when($request->has('product_code'), function ($query) use ($request) {
-            $query->where('reports.product_code', $request->product_code);
-        })
-        ->when($request->has('fromDate') && $request->has('toDate'), function ($query) use ($request) {
-            $query->whereBetween('reports.settlement_date', [$request->fromDate, $request->toDate]);
-        })
-        ->get();
+    {
+        $report = $this->makeJoinTable()
+            ->select(
+                'products.name as product_name',
+                'users.user_name',
+                'users.id as user_id',
+                'reports.wager_id',
+                'reports.valid_bet_amount',
+                'reports.bet_amount',
+                'reports.payout_amount',
+                'reports.settlement_date',
+                'game_lists.code as game_code',
+                'game_lists.name as game_list_name'
+            )
+            ->where('users.id', $userId)
+            ->when($request->has('product_code'), function ($query) use ($request) {
+                $query->where('reports.product_code', $request->product_code);
+            })
+            ->when($request->has('fromDate') && $request->has('toDate'), function ($query) use ($request) {
+                $query->whereBetween('reports.settlement_date', [$request->fromDate, $request->toDate]);
+            })
+            ->get();
 
-    $player = User::find($userId);
+        $player = User::find($userId);
 
-    return view('report.detail', compact('report', 'player'));
-}
+        return view('report.detail', compact('report', 'player'));
+    }
 
-
-        // sophia 
+    // sophia
     // public function detail(Request $request, int $userId)
     // {
 
@@ -127,19 +126,20 @@ class ReportController extends Controller
             ->where('reports.member_name', $user_name)
             ->get();
 
-            return view('report.view', compact('reports'));
+        return view('report.view', compact('reports'));
     }
-    // amk 
-    private function makeJoinTable()
-{
-    $query = User::query()->roleLimited();
-    $query->join('reports', 'reports.member_name', '=', 'users.user_name')
-          ->join('products', 'reports.product_code', '=', 'products.code')
-          ->join('game_lists', 'reports.game_name', '=', 'game_lists.code')
-          ->where('reports.status', '101');
 
-    return $query;
-}
+    // amk
+    private function makeJoinTable()
+    {
+        $query = User::query()->roleLimited();
+        $query->join('reports', 'reports.member_name', '=', 'users.user_name')
+            ->join('products', 'reports.product_code', '=', 'products.code')
+            ->join('game_lists', 'reports.game_name', '=', 'game_lists.code')
+            ->where('reports.status', '101');
+
+        return $query;
+    }
 
     // sophia
     // private function makeJoinTable()
@@ -152,32 +152,31 @@ class ReportController extends Controller
     //     return $query;
     // }
 
-//     private function makeJoinTable()
-// {
-//     $query = User::query()->roleLimited();
-//     $query->join('reports', 'reports.member_name', '=', 'users.user_name')
-//           ->join('products', 'reports.product_code', '=', 'products.code')
-//           ->join('game_lists', 'products.product_id', '=', 'game_lists.product_id')
-//           ->select('reports.*', 'game_lists.code as game_code', 'game_lists.name as game_name')
-//           ->where('reports.status', 101);
+    //     private function makeJoinTable()
+    // {
+    //     $query = User::query()->roleLimited();
+    //     $query->join('reports', 'reports.member_name', '=', 'users.user_name')
+    //           ->join('products', 'reports.product_code', '=', 'products.code')
+    //           ->join('game_lists', 'products.product_id', '=', 'game_lists.product_id')
+    //           ->select('reports.*', 'game_lists.code as game_code', 'game_lists.name as game_name')
+    //           ->where('reports.status', 101);
 
-//     return $query;
-// }
+    //     return $query;
+    // }
 
-/* 
+    /*
 
-SELECT 
-    reports.*,
-    game_lists.code AS game_code,
-    game_lists.name AS game_name
-FROM 
-    reports
-JOIN 
-    game_lists ON reports.game_name = game_lists.code
-WHERE 
-    reports.status = '101';
+    SELECT
+        reports.*,
+        game_lists.code AS game_code,
+        game_lists.name AS game_name
+    FROM
+        reports
+    JOIN
+        game_lists ON reports.game_name = game_lists.code
+    WHERE
+        reports.status = '101';
 
-*/
-
+    */
 
 }

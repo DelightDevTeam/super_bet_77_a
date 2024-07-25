@@ -30,13 +30,12 @@ class PaymentTypeController extends Controller
         return view('admin.payment_types.create', compact('paymentTypes'));
     }
 
-
     public function store(Request $request)
     {
         $request->validate([
             'payment_type_id' => ['required'],
             'account_name' => ['required'],
-            'account_no' => ['required']
+            'account_no' => ['required'],
         ]);
 
         UserPayment::create(array_merge(['user_id' => Auth::id()], $request->all()));
@@ -74,7 +73,6 @@ class PaymentTypeController extends Controller
 
         return redirect()->route('admin.paymentTypes.index');
     }
-
 
     /**
      * Remove the specified resource from storage.

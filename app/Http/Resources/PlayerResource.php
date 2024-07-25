@@ -20,9 +20,9 @@ class PlayerResource extends JsonResource
             'user_name' => $this->user_name,
             'phone' => $this->phone,
             'email' => $this->email,
-            'profile' => asset('assets/img/player_profile/'. $this->profile),
+            'profile' => asset('assets/img/player_profile/'.$this->profile),
             'balance' => $this->balanceFloat,
-            'status' => $this->status
+            'status' => $this->status,
         ];
     }
 }

@@ -4,25 +4,32 @@ namespace App\Http\Controllers\Admin\Player;
 
 use App\Enums\TransactionName;
 use App\Enums\UserType;
-use Exception;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PlayerRequest;
+use App\Http\Requests\TransferLogRequest;
+use App\Models\User;
+use App\Services\UserService;
+use App\Services\WalletService;
+use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\TransferLogRequest;
-use App\Http\Requests\PlayerRequest;
-use App\Services\WalletService;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
-
 class PlayerController extends Controller
 {
+    protected $userService;
 
     private const PLAYER_ROLE = 3;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -41,8 +48,20 @@ class PlayerController extends Controller
             ->where('agent_id', auth()->id())
             ->orderBy('id', 'desc')
             ->get();
-            
+
         return view('admin.player.index', compact('users'));
+    }
+
+    /**
+     * Display a listing of the users with their agents.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function player_with_agent()
+    {
+        $users = $this->userService->getAllUsersWithAgents();
+
+        return view('admin.player.list', compact('users'));
     }
 
     /**
@@ -56,6 +75,7 @@ class PlayerController extends Controller
             '403 Forbidden |You cannot  Access this page because you do not have permission'
         );
         $player_name = $this->generateRandomString();
+
         return view('admin.player.create', compact('player_name'));
     }
 
@@ -86,10 +106,10 @@ class PlayerController extends Controller
                 [
                     'password' => Hash::make($inputs['password']),
                     'agent_id' => Auth()->user()->id,
-                    'type' => UserType::Player
+                    'type' => UserType::Player,
                 ]
             );
-            Log::info('User prepared: ' . json_encode($userPrepare));
+            Log::info('User prepared: '.json_encode($userPrepare));
 
             $player = User::create($userPrepare);
             $player->roles()->sync(self::PLAYER_ROLE);
@@ -103,9 +123,10 @@ class PlayerController extends Controller
                 ->with('url', env('APP_URL'))
                 ->with('password', $request->password)
                 ->with('username', $player->user_name);
-                
+
         } catch (Exception $e) {
-            Log::error('Error creating user: ' . $e->getMessage());
+            Log::error('Error creating user: '.$e->getMessage());
+
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
@@ -147,6 +168,7 @@ class PlayerController extends Controller
     {
 
         $player->update($request->all());
+
         return redirect()->route('admin.player.index')->with('success', 'User updated successfully');
     }
 
@@ -156,26 +178,26 @@ class PlayerController extends Controller
     public function destroy(User $player)
     {
         abort_if(
-            Gate::denies('player_delete') || !$this->ifChildOfParent(request()->user()->id, $player->id),
+            Gate::denies('player_delete') || ! $this->ifChildOfParent(request()->user()->id, $player->id),
             Response::HTTP_FORBIDDEN,
             '403 Forbidden |You cannot  Access this page because you do not have permission'
         );
-       $player->delete();
+        $player->delete();
 
         return redirect()->route('admin.player.index')->with('success', 'User deleted successfully');
     }
 
-
     public function massDestroy(Request $request)
     {
         User::whereIn('id', request('ids'))->delete();
+
         return response(null, 204);
     }
 
     public function banUser($id)
     {
         abort_if(
-            !$this->ifChildOfParent(request()->user()->id, $id),
+            ! $this->ifChildOfParent(request()->user()->id, $id),
             Response::HTTP_FORBIDDEN,
             '403 Forbidden |You cannot  Access this page because you do not have permission'
         );
@@ -185,7 +207,7 @@ class PlayerController extends Controller
 
         return redirect()->back()->with(
             'success',
-            'User ' . ($user->status == 1 ? 'activate' : 'inactive') . ' successfully'
+            'User '.($user->status == 1 ? 'activate' : 'inactive').' successfully'
         );
     }
 
@@ -196,13 +218,14 @@ class PlayerController extends Controller
             Response::HTTP_FORBIDDEN,
             '403 Forbidden |You cannot  Access this page because you do not have permission'
         );
+
         return view('admin.player.cash_in', compact('player'));
     }
 
     public function makeCashIn(TransferLogRequest $request, User $player)
     {
         abort_if(
-            Gate::denies('make_transfer') || !$this->ifChildOfParent(request()->user()->id, $player->id),
+            Gate::denies('make_transfer') || ! $this->ifChildOfParent(request()->user()->id, $player->id),
             Response::HTTP_FORBIDDEN,
             '403 Forbidden |You cannot  Access this page because you do not have permission'
         );
@@ -219,7 +242,7 @@ class PlayerController extends Controller
                 return redirect()->back()->with('error', 'You do not have enough balance to transfer!');
             }
 
-            app(WalletService::class)->transfer($agent, $player, $request->validated("amount"), TransactionName::CreditTransfer);
+            app(WalletService::class)->transfer($agent, $player, $request->validated('amount'), TransactionName::CreditTransfer);
 
             return redirect()->back()
                 ->with('success', 'CashIn submitted successfully!');
@@ -228,19 +251,22 @@ class PlayerController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
     public function getCashOut(User $player)
     {
         abort_if(
-            Gate::denies('make_transfer') || !$this->ifChildOfParent(request()->user()->id, $player->id),
+            Gate::denies('make_transfer') || ! $this->ifChildOfParent(request()->user()->id, $player->id),
             Response::HTTP_FORBIDDEN,
             '403 Forbidden |You cannot  Access this page because you do not have permission'
         );
+
         return view('admin.player.cash_out', compact('player'));
     }
+
     public function makeCashOut(TransferLogRequest $request, User $player)
     {
         abort_if(
-            Gate::denies('make_transfer') || !$this->ifChildOfParent(request()->user()->id, $player->id),
+            Gate::denies('make_transfer') || ! $this->ifChildOfParent(request()->user()->id, $player->id),
             Response::HTTP_FORBIDDEN,
             '403 Forbidden |You cannot  Access this page because you do not have permission'
         );
@@ -257,7 +283,7 @@ class PlayerController extends Controller
                 return redirect()->back()->with('error', 'You do not have enough balance to transfer!');
             }
 
-            app(WalletService::class)->transfer($player, $agent, $request->validated("amount"), TransactionName::DebitTransfer);
+            app(WalletService::class)->transfer($player, $agent, $request->validated('amount'), TransactionName::DebitTransfer);
 
             return redirect()->back()
                 ->with('success', 'CashOut submitted successfully!');
@@ -270,13 +296,14 @@ class PlayerController extends Controller
     public function getChangePassword($id)
     {
         $player = User::find($id);
+
         return view('admin.player.change_password', compact('player'));
     }
 
     public function makeChangePassword($id, Request $request)
     {
         $request->validate([
-            'password' => 'required|min:6|confirmed'
+            'password' => 'required|min:6|confirmed',
         ]);
 
         $player = User::find($id);
@@ -293,12 +320,13 @@ class PlayerController extends Controller
     private function generateRandomString()
     {
         $randomNumber = mt_rand(10000000, 99999999);
-        return 'MW' . $randomNumber;
+
+        return 'MW'.$randomNumber;
     }
 
     private function getRefrenceId($prefix = 'REF')
     {
-        return  uniqid($prefix);
+        return uniqid($prefix);
     }
 
     public function playersByAgent(Request $request, int $agentId)

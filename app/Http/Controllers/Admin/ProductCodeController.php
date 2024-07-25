@@ -14,6 +14,7 @@ class ProductCodeController extends Controller
     public function index()
     {
         $product_code = ProductCode::latest()->get();
+
         return view('admin.product_code.index', compact('product_code'));
     }
 
@@ -30,7 +31,7 @@ class ProductCodeController extends Controller
      */
     public function store(Request $request)
     {
-        $product_code = new ProductCode();
+        $product_code = new ProductCode;
         $product_code['product'] = $request->product;
         $product_code['product_code'] = $request->product_code;
         $product_code['game_type'] = $request->game_type;
@@ -56,6 +57,7 @@ class ProductCodeController extends Controller
     public function edit(string $id)
     {
         $value = ProductCode::find($id);
+
         return view('admin.product_code.edit', compact('value'));
     }
 

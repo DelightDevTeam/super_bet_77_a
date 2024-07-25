@@ -15,6 +15,6 @@ class PaymentType extends Model
 
     public function getImageUrlAttribute()
     {
-        return asset('assets/img/paymentType/' . $this->image);
+        return asset('assets/img/paymentType/'.$this->image);
     }
 }

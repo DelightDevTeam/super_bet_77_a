@@ -22,10 +22,10 @@ class DepositRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'agent_payment_id' => ['required','exists:user_payments,id'],
-            'amount' => ['required','integer','min:1000'],
+            'agent_payment_id' => ['required', 'exists:user_payments,id'],
+            'amount' => ['required', 'integer', 'min:1000'],
             'image' => ['required', 'image'],
-            'note' => ['nullable', 'string']
+            'note' => ['nullable', 'string'],
         ];
     }
 }

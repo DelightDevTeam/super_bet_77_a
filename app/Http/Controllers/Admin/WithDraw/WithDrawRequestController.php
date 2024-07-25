@@ -16,8 +16,10 @@ class WithDrawRequestController extends Controller
     public function index()
     {
         $withdraws = WithDrawRequest::with(['user', 'paymentType'])->where('agent_id', Auth::id())->get();
+
         return view('admin.withdraw_request.index', compact('withdraws'));
     }
+
     public function show($id)
     {
         $withdraw = WithDrawRequest::find($id);
@@ -29,7 +31,7 @@ class WithDrawRequestController extends Controller
     {
 
         $request->validate([
-            'status' => 'required|in:0,1,2'
+            'status' => 'required|in:0,1,2',
         ]);
 
         try {
@@ -40,7 +42,7 @@ class WithDrawRequestController extends Controller
             }
 
             $withdraw->update([
-                'status' => $request->status
+                'status' => $request->status,
             ]);
 
             app(WalletService::class)->transfer($player, $agent, $request->amount, TransactionName::DebitTransfer);
@@ -50,5 +52,4 @@ class WithDrawRequestController extends Controller
             return back()->with('error', $e->getMessage());
         }
     }
-
 }

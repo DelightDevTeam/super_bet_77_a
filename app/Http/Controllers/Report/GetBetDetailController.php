@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Report;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 
 class GetBetDetailController extends Controller
 {
@@ -17,7 +17,7 @@ class GetBetDetailController extends Controller
             DB::raw('SUM(reports.bet_amount) as total_bet_amount'),
             DB::raw('SUM(reports.valid_bet_amount) as total_valid_bet_amount'),
             DB::raw('SUM(reports.payout_amount) as total_payout_amount'))
-        ->groupBy('product_name', 'products.code')
+            ->groupBy('product_name', 'products.code')
             ->when(isset($request->fromDate) && isset($request->toDate), function ($query) use ($request) {
                 $query->whereBetween('reports.settlement_date', [$request->fromDate, $request->toDate]);
             })
@@ -26,7 +26,7 @@ class GetBetDetailController extends Controller
         return view('get_bet_detail.index', compact('reports'));
     }
 
-    public function show(Request $request ,int $code)
+    public function show(Request $request, int $code)
     {
         $reports = $this->makeJoinTable()->select(
             'users.user_name',
@@ -45,7 +45,7 @@ class GetBetDetailController extends Controller
                 $query->whereBetween('reports.settlement_date', [$request->fromDate, $request->toDate]);
             })
             ->get();
-        
+
         return view('get_bet_detail.show', compact('reports'));
     }
 
@@ -90,7 +90,7 @@ class GetBetDetailController extends Controller
             ->where('reports.member_name', $user_name)
             ->get();
 
-            return view('get_bet_detail.view', compact('reports'));
+        return view('get_bet_detail.view', compact('reports'));
     }
 
     private function makeJoinTable()

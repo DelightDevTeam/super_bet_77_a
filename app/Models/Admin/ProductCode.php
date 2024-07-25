@@ -14,6 +14,6 @@ class ProductCode extends Model
         'product_code',
         'game_type',
         'currency_code',
-        'converstion_rate'
+        'converstion_rate',
     ];
 }
