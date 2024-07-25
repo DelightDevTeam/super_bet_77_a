@@ -24,8 +24,6 @@ class DepositRequestController extends Controller
     public function show($id)
     {
         $deposit = DepositRequest::find($id);
-        return $deposit;
-
         return view('admin.deposit_request.show', compact('deposit'));
     }
 
