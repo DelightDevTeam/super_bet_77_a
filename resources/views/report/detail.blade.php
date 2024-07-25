@@ -70,9 +70,13 @@
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Result
                                             Time
                                         </th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            WagerID
+                                        </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Result
                                             Product Type
                                         </th>
+                                        
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Result
                                             GameName
                                         </th>
@@ -94,6 +98,10 @@
                                     @foreach ($report as $detail)
                                     <tr>
                                         <td class="text-sm font-weight-normal">{{$detail->settlement_date}}</td>
+                                       <td>
+                                        <a href="https://prodmd.9977997.com/Report/BetDetail?agentCode=E820&WagerID={{ $detail->wager_id }}" target="_blank" style="color: blueviolet">{{ $detail->wager_id }}</a>
+                                       </td>
+
                                         <td class="text-sm font-weight-normal">{{$detail->product_name}}</td>
                                         <td class="text-sm font-weight-normal">{{$detail->game_list_name}}</td>
                                         <td class="text-sm font-weight-normal">{{$detail->valid_bet_amount}}</td>

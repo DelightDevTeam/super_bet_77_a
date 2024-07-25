@@ -62,6 +62,7 @@ class ReportController extends Controller
             'products.name as product_name',
             'users.user_name',
             'users.id as user_id',
+            'reports.wager_id',
             'reports.valid_bet_amount',
             'reports.bet_amount',
             'reports.payout_amount',
