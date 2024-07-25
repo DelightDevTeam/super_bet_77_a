@@ -56,8 +56,26 @@
 
           <td>{{ $deposit->created_at->format('d-m-Y') }}</td>
           <td>
+            <form action="{{ route('admin.agent.depositStatus',$deposit->id) }}" method="post">
+              @csrf
+              <input type="hidden" name="amount" value="{{ $deposit->amount }}">
+              <input type="hidden" name="status" value="1">
+              <button class="btn btn-sm btn-success" type="submit">
+                <i class="fas fa-check"></i>
+              </button>
+            </form>
+            <form action="{{ route('admin.agent.depositStatus',$deposit->id) }}" method="post">
+              @csrf
+              <input type="hidden" name="amount" value="{{ $deposit->amount }}">
+              <input type="hidden" name="status" value="2">
+              <button class="btn btn-sm btn-danger" type="submit">
+                <i class="fas fa-xmark"></i>
+              </button>
+            </form>
             @if($deposit->status == 0 )
-            <a href="{{route('admin.agent.depositshow',$deposit->id)}}" class="btn btn-primary" disabled >Update</a>
+            <a href="{{route('admin.agent.depositshow',$deposit->id)}}" class="btn btn-primary" disabled >
+              <i class="fas fa-eye"></i>
+            </a>
             @endif
           </td>
         </tr>
