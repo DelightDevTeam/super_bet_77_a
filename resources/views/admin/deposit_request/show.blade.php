@@ -130,6 +130,9 @@
               @enderror
               </div>
             </div>
+            <div class="col-md-6">
+              <img src="{{ $deposit->img_url }}" class="img-fluid rounded" alt="">
+            </div>
 
           </div>
           <div class="row">
