@@ -61,7 +61,7 @@
                 @csrf
                 <input type="hidden" name="amount" value="{{ $deposit->amount }}">
                 <input type="hidden" name="status" value="1">
-                <button class="btn btn-success" type="submit">
+                <button class="btn btn-success p-1" type="submit">
                   <i class="fas fa-check fa-2x"></i>
                 </button>
               </form>
@@ -69,11 +69,11 @@
                 @csrf
                 <input type="hidden" name="amount" value="{{ $deposit->amount }}">
                 <input type="hidden" name="status" value="2">
-                <button class="btn" type="submit">
+                <button class="btn btn-danger p-1" type="submit">
                   <i class="fas fa-xmark fa-2x"></i>
                 </button>
               </form>
-              <a href="{{route('admin.agent.depositshow',$deposit->id)}}" class="btn btn-warning d-block">
+              <a href="{{route('admin.agent.depositshow',$deposit->id)}}" class="btn btn-warning p-1 d-block">
                 <i class="fas fa-eye"></i>
               </a>
             </div>
