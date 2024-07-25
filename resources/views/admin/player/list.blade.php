@@ -45,7 +45,6 @@
                 <th>Creator</th>
                 <th>Agent Phone</th>
                 <th>Balance</th>
-                <th>Action</th>
             </tr>
         </thead>
         <tbody>
