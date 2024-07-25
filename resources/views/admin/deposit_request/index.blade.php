@@ -61,8 +61,8 @@
                 @csrf
                 <input type="hidden" name="amount" value="{{ $deposit->amount }}">
                 <input type="hidden" name="status" value="1">
-                <button class="btn" type="submit">
-                  <i class="fas fa-check text-success fa-2x"></i>
+                <button class="btn btn-success" type="submit">
+                  <i class="fas fa-check fa-2x"></i>
                 </button>
               </form>
               <form action="{{ route('admin.agent.depositStatus',$deposit->id) }}" method="post">
@@ -70,11 +70,11 @@
                 <input type="hidden" name="amount" value="{{ $deposit->amount }}">
                 <input type="hidden" name="status" value="2">
                 <button class="btn" type="submit">
-                  <i class="fas fa-xmark text-danger fa-2x"></i>
+                  <i class="fas fa-xmark fa-2x"></i>
                 </button>
               </form>
-              <a href="{{route('admin.agent.depositshow',$deposit->id)}}" class="text-decoration-none text-warning d-block" disabled >
-                <i class="fas fa-eye text-warning"></i>
+              <a href="{{route('admin.agent.depositshow',$deposit->id)}}" class="btn btn-warning d-block">
+                <i class="fas fa-eye"></i>
               </a>
             </div>
 
