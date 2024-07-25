@@ -42,7 +42,7 @@
       </a>
     </li>
     @endcan
-    @can('player_index')
+    @can('withdraw')
     <li class="nav-item">
       <a class="nav-link text-white " href="{{ route('admin.player.index')}}">
         <span class="sidenav-mini-icon"> <i class="fa-solid fa-user"></i> </span>
@@ -50,11 +50,11 @@
       </a>
     </li>
     @endcan
-    @can('player_index')
+    @can('admin_access')
     <li class="nav-item">
       <a class="nav-link text-white " href="{{ url('admin/players-list')}}">
         <span class="sidenav-mini-icon"> <i class="fa-solid fa-user"></i> </span>
-        <span class="sidenav-normal  ms-2  ps-1">Admin-Player List</span>
+        <span class="sidenav-normal  ms-2  ps-1">Player List</span>
       </a>
     </li>
     @endcan
