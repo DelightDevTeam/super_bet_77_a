@@ -16,7 +16,7 @@ class DepositRequest extends Model
 
     public function getImgUrlAttribute()
     {
-        return asset('assets/img/depositRequests/' . $this->image);
+        return asset('assets/img/depositRequest/' . $this->image);
     }
     public function user()
     {
