@@ -149,4 +149,12 @@ class User extends Authenticatable implements Wallet
         }
         return $query;
     }
+     public static function getPlayersByAgentId(int $agentId)
+    {
+        return self::where('agent_id', $agentId)
+            ->whereHas('roles', function($query) {
+                $query->where('title', '!=', 'Agent');
+            })
+            ->get();
+    }
 }

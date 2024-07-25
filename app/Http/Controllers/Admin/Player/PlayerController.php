@@ -300,4 +300,11 @@ class PlayerController extends Controller
     {
         return  uniqid($prefix);
     }
+
+    public function playersByAgent(Request $request, int $agentId)
+    {
+        $players = User::getPlayersByAgentId($agentId);
+
+        return view('players.index', compact('players'));
+    }
 }
