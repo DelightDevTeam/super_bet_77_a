@@ -98,10 +98,12 @@
                                     @foreach ($report as $detail)
                                     <tr>
                                         <td class="text-sm font-weight-normal">{{$detail->settlement_date}}</td>
-                                       <td>
+                                       {{-- <td>
                                         <a href="https://prodmd.9977997.com/Report/BetDetail?agentCode=E820&WagerID={{ $detail->wager_id }}" target="_blank" style="color: blueviolet">{{ $detail->wager_id }}</a>
-                                       </td>
-
+                                       </td> --}}
+                                       <td>
+                                        <a href="https://prodmd.9977997.com/Report/BetDetail?agentCode=E820&WagerID={{ $detail->wager_id }}" target="_blank" style="color: blueviolet; text-decoration: underline;">{{ $detail->wager_id }}</a>
+                                        </td>
                                         <td class="text-sm font-weight-normal">{{$detail->product_name}}</td>
                                         <td class="text-sm font-weight-normal">{{$detail->game_list_name}}</td>
                                         <td class="text-sm font-weight-normal">{{$detail->valid_bet_amount}}</td>
