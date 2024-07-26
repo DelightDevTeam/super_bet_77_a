@@ -115,7 +115,8 @@ Route::group([
     Route::post('deposit/{deposit}', [DepositRequestController::class, 'statusChange'])->name('agent.depositStatus');
 
     Route::post('deposit/{id}', [DepositRequestController::class, 'statusChangeIndex'])->name('agent.depositStatusUpdate');
-     Route::post('deposit/{reject}', [DepositRequestController::class, 'statusChangeReject'])->name('agent.depositStatusreject');
+
+     Route::post('deposit-reject/{id}', [DepositRequestController::class, 'statusChangeReject'])->name('agent.depositStatusreject');
 
 
 

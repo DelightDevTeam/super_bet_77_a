@@ -68,9 +68,9 @@
                 <i class="fas fa-check"></i>
             </button>
         </form>
+
         <form action="{{ route('admin.agent.depositStatusreject', $deposit->id) }}" method="post">
             @csrf
-            {{-- <input type="hidden" name="amount" value="{{ $deposit->amount }}"> --}}
             <input type="hidden" name="status" value="2">
             <button class="btn btn-danger p-1 me-1" type="submit">
                 <i class="fas fa-xmark"></i>

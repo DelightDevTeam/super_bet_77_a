@@ -45,7 +45,11 @@ class DepositRequestController extends Controller
                 'status' => $request->status,
             ]);
 
+             if ($request->status == 1) {
             app(WalletService::class)->transfer($agent, $player, $request->amount, TransactionName::DebitTransfer);
+        }
+
+            // app(WalletService::class)->transfer($agent, $player, $request->amount, TransactionName::DebitTransfer);
 
             return redirect()->route('admin.agent.deposit')->with('success', 'Agent status switch successfully!');
         } catch (Exception $e) {
