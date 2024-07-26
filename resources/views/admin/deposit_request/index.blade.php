@@ -52,9 +52,20 @@
           <td>{{ $deposit->userPayment->paymentType->name }}</td>
           <td>{{$deposit->userPayment->account_name}}</td>
           <td>{{$deposit->userPayment->account_no}}</td>
-          <td>
+          {{-- <td>
           <span class="badge text-bg-{{ $deposit->status == 0 ? 'danger' : 'success' }} text-white mb-2">{{ $deposit->status == 0 ? "pending" : "done" }}</span>
+          </td> --}}
+
+          <td>
+            @if ($deposit->status == 0)
+                <span class="badge text-bg-warning text-white mb-2">Pending</span>
+            @elseif ($deposit->status == 1)
+                <span class="badge text-bg-success text-white mb-2">Approved</span>
+            @elseif ($deposit->status == 2)
+                <span class="badge text-bg-danger text-white mb-2">Rejected</span>
+            @endif
           </td>
+
 
           <td>{{ $deposit->created_at->format('d-m-Y') }}</td>
           <td>
