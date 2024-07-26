@@ -25,10 +25,9 @@ return new class extends Migration
             $table->integer('status')->default(1);
             $table->integer('is_changed_password')->default(1);
             $table->unsignedBigInteger('agent_id')->nullable();
+            $table->string('referral_code')->unique()->nullable();
             $table->rememberToken();
             $table->timestamps();
-            $table->smallInteger('sync')->default(0);
-            $table->integer('sync_time')->default(0);
             $table->foreign('agent_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

@@ -38,7 +38,7 @@
           <thead class="thead-light">
             <th>#</th>
             <th>AgentName</th>
-            <th>Name</th>
+            <th>ReferralCode</th>
             <th>Phone</th>
             <th>Status</th>
             <th>Balance</th>
@@ -56,7 +56,7 @@
                 <span class="d-block">{{ $user->name }}</span>
 
               </td>
-              <td>{{$user->user_name}}</td>
+              <td>{{$user->referral_code}}</td>
               <td>{{ $user->phone }}</td>
               <td>
               <small class="badge bg-gradient-{{ $user->status == 1 ? 'success' : ($user->status == 2 ? 'danger' : 'warning') }}">{{ $user->status == 1 ? "active" : ($user->status == 2 ? "inactive" : "pending") }}</small>

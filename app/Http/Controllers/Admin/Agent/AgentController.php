@@ -58,8 +58,9 @@ class AgentController extends Controller
             '403 Forbidden |You cannot  Access this page because you do not have permission'
         );
         $agent_name = $this->generateRandomString();
+        $referral_code = $this->generateReferralCode();
 
-        return view('admin.agent.create', compact('agent_name'));
+        return view('admin.agent.create', compact('agent_name', 'referral_code'));
     }
 
     /**
@@ -193,32 +194,6 @@ class AgentController extends Controller
         return view('admin.agent.cash_out', compact('agent'));
     }
 
-    // public function makeCashIn(TransferLogRequest $request, $id)
-    // {
-    //     abort_if(
-    //         Gate::denies('make_transfer') || !$this->ifChildOfParent(request()->user()->id, $id),
-    //         Response::HTTP_FORBIDDEN,
-    //         '403 Forbidden |You cannot Access this page because you do not have permission'
-    //     );
-
-    //     try {
-    //         $inputs = $request->validated();
-    //         $agent = User::findOrFail($id);
-    //         $admin = Auth::user();
-    //         $cashIn = $inputs['amount'];
-    //         if ($cashIn > $admin->balanceFloat) {
-    //             throw new \Exception('You do not have enough balance to transfer!');
-    //         }
-
-    //         // Transfer money
-    //         app(WalletService::class)->transfer($admin, $agent, $cashIn, TransactionName::CreditTransfer, TransactionType::DEPOSIT());
-
-    //         return redirect()->back()->with('success', 'Money fill request submitted successfully!');
-    //     } catch (Exception $e) {
-    //         session()->flash('error', $e->getMessage());
-    //         return redirect()->back()->with('error', $e->getMessage());
-    //     }
-    // }
 
     public function makeCashIn(TransferLogRequest $request, $id)
     {
@@ -286,41 +261,6 @@ class AgentController extends Controller
         return redirect()->back()->with('success', 'Money fill request submitted successfully!');
     }
 
-    //    public function makeCashOut(TransferLogRequest $request, string $id)
-    // {
-    //     abort_if(
-    //         Gate::denies('make_transfer') || !$this->ifChildOfParent(request()->user()->id, $id),
-    //         Response::HTTP_FORBIDDEN,
-    //         '403 Forbidden | You cannot access this page because you do not have permission'
-    //     );
-
-    //     try {
-    //         $inputs = $request->validated();
-
-    //         $agent = User::findOrFail($id);
-    //         $admin = Auth::user();
-    //         $cashOut = $inputs['amount'];
-
-    //         if ($cashOut > $agent->balanceFloat) {
-    //             return redirect()->back()->with('error', 'You do not have enough balance to transfer!');
-    //         }
-
-    //         // Perform the transfer using WalletService
-    //         app(WalletService::class)->transfer(
-    //             $agent,
-    //             $admin,
-    //             $cashOut, // Use the validated amount from the request
-    //             TransactionName::DebitTransfer,
-    //             TransactionType::WITHDRAW() // Assuming a default transaction type
-    //         );
-
-    //         return redirect()->back()->with('success', 'Money fill request submitted successfully!');
-    //     } catch (Exception $e) {
-    //         // Handle exceptions
-    //         session()->flash('error', $e->getMessage());
-    //         return redirect()->back()->with('error', $e->getMessage());
-    //     }
-    // }
 
     public function getTransferDetail($id)
     {
@@ -397,5 +337,17 @@ class AgentController extends Controller
             ->with('success', 'Agent Change Password successfully')
             ->with('password', $request->password)
             ->with('username', $agent->user_name);
+    }
+
+    private function generateReferralCode($length = 8) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+
+        return $randomString;
     }
 }
