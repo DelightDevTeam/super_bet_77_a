@@ -61,7 +61,7 @@
             @csrf
             <input type="hidden" name="amount" value="{{ $deposit->amount }}">
             <input type="hidden" name="status" value="1">
-            <input type="hidden" name="player" value="{{ $deposit->player_id }}">
+            <input type="hidden" name="player" value="{{ $deposit->user_id }}">
             <button class="btn btn-success p-1 me-1" type="submit">
                 <i class="fas fa-check"></i>
             </button>
