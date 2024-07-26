@@ -114,6 +114,9 @@ Route::group([
     Route::get('deposit/{id}', [DepositRequestController::class, 'show'])->name('agent.depositshow');
     Route::post('deposit/{deposit}', [DepositRequestController::class, 'statusChange'])->name('agent.depositStatus');
 
+    Route::post('deposit/{id}', [DepositRequestController::class, 'statusChangeIndex'])->name('agent.depositStatusUpdate');
+
+
 
     Route::get('transer-log', [TransferLogController::class, 'index'])->name('transferLog');
     Route::get('transferlog/{id}', [TransferLogController::class, 'transferLog'])->name('transferLogDetail');

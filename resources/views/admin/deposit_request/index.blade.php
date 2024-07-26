@@ -56,6 +56,31 @@
 
           <td>{{ $deposit->created_at->format('d-m-Y') }}</td>
           <td>
+    <div class="d-flex align-items-center">
+        <form action="{{ route('admin.agent.depositStatusUpdate', $deposit->id) }}" method="post">
+            @csrf
+            <input type="hidden" name="amount" value="{{ $deposit->amount }}">
+            <input type="hidden" name="status" value="1">
+            <input type="hidden" name="player" value="{{ $deposit->player_id }}">
+            <button class="btn btn-success p-1 me-1" type="submit">
+                <i class="fas fa-check"></i>
+            </button>
+        </form>
+        <form action="{{ route('admin.agent.depositStatusUpdate', $deposit->id) }}" method="post">
+            @csrf
+            <input type="hidden" name="amount" value="{{ $deposit->amount }}">
+            <input type="hidden" name="status" value="2">
+            <button class="btn btn-danger p-1 me-1" type="submit">
+                <i class="fas fa-xmark"></i>
+            </button>
+        </form>
+        <a href="{{ route('admin.agent.depositshow', $deposit->id) }}" class="btn btn-warning p-1 d-block">
+            <i class="fas fa-eye"></i>
+        </a>
+    </div>
+</td>
+
+          {{-- <td>
             <div class="d-flex align-items-center">
               <form action="{{ route('admin.agent.depositStatus',$deposit->id) }}" method="post">
                 @csrf
@@ -78,7 +103,7 @@
               </a>
             </div>
 
-          </td>
+          </td> --}}
         </tr>
         @endforeach
       </tbody>
