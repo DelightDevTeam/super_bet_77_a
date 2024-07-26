@@ -87,4 +87,22 @@ class DepositRequestController extends Controller
     }
 }
 
+public function statusChangeReject(Request $request, DepositRequest $deposit)
+{
+    $request->validate([
+        'status' => 'required|in:0,1,2',
+    ]);
+
+    try {
+        // Update the deposit status
+        $deposit->update([
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('admin.agent.deposit')->with('success', 'Deposit status updated successfully!');
+    } catch (Exception $e) {
+        return back()->with('error', $e->getMessage());
+    }
+}
+
 }

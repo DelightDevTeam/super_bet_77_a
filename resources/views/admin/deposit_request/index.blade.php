@@ -30,6 +30,7 @@
     <table class="table table-flush" id="users-search">
       <thead class="thead-light">
         <th>#</th>
+        {{-- <th>id</th> --}}
         <th>PlayerId</th>
         <th>Requested Amount</th>
         <th>Payment Method</th>
@@ -43,6 +44,7 @@
         @foreach ($deposits as $deposit)
         <tr>
           <td>{{ $loop->iteration }}</td>
+          {{-- <td>{{ $deposit->user->id }}</td> --}}
           <td>
             <span class="d-block">{{ $deposit->user->user_name }}</span>
           </td>
@@ -66,9 +68,9 @@
                 <i class="fas fa-check"></i>
             </button>
         </form>
-        <form action="{{ route('admin.agent.depositStatusUpdate', $deposit->id) }}" method="post">
+        <form action="{{ route('admin.agent.depositStatusreject', $deposit->id) }}" method="post">
             @csrf
-            <input type="hidden" name="amount" value="{{ $deposit->amount }}">
+            {{-- <input type="hidden" name="amount" value="{{ $deposit->amount }}"> --}}
             <input type="hidden" name="status" value="2">
             <button class="btn btn-danger p-1 me-1" type="submit">
                 <i class="fas fa-xmark"></i>
