@@ -38,6 +38,7 @@
           <thead class="thead-light">
             <th>#</th>
             <th>AgentName</th>
+            <th>AgentID</th>
             <th>ReferralCode</th>
             <th>Phone</th>
             <th>Status</th>
@@ -54,7 +55,9 @@
               <td>{{ $loop->iteration }}</td>
               <td>
                 <span class="d-block">{{ $user->name }}</span>
-
+              </td>
+              <td>
+                <span class="d-block">{{ $user->user_name }}</span>
               </td>
               <td>{{$user->referral_code}}</td>
               <td>{{ $user->phone }}</td>
