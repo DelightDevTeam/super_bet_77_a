@@ -53,11 +53,12 @@
             </div>
         </div>
     </div>
+    @can('admin_access')
     <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
         <div class="card ">
             <div class="card-header p-3 pt-2 bg-transparent">
                 <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
-                    <i class="material-icons opacity-10">person_add</i>
+                   <a href="{{route('admin.agent.create')}}"> <i class="material-icons opacity-10">person_add</i></a>
                 </div>
                 <div class="text-end pt-1">
                     <p class="text-sm mb-0 text-capitalize ">Agents</p>
@@ -69,12 +70,14 @@
                 <p class="mb-0 ">Just updated</p>
             </div>
         </div>
-    </div>
+    </div>    
+    @endcan
+    @can('agent_access')
     <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
         <div class="card ">
             <div class="card-header p-3 pt-2 bg-transparent">
                 <div class="icon icon-lg icon-shape bg-gradient-warning shadow-warning text-center border-radius-xl mt-n4 position-absolute">
-                    <i class="material-icons opacity-10">person_add</i>
+                <a href="{{route('admin.player.create')}}"> <i class="material-icons opacity-10">person_add</i></a>
                 </div>
                 <div class="text-end pt-1">
                     <p class="text-sm mb-0 text-capitalize ">Players</p>
@@ -87,7 +90,7 @@
             </div>
         </div>
     </div>
-   
+    @endcan
 </div>
 </div>
 @can('admin_access')

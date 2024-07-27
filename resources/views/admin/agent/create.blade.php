@@ -112,7 +112,13 @@
               <span class="text-danger d-block">*{{ $message }}</span>
               @enderror
             </div>
-           
+            <div class="custom-form-group">
+              <label for="title">Referal Code <span class="text-danger">*</span></label>
+              <input type="text"  name="referral_code" class="form-control" value="{{$referral_code}}">
+              @error('referral_code')
+              <span class="text-danger d-block">*{{ $message }}</span>
+              @enderror
+            </div>
             <div class="custom-form-group">
               <label for="title">Agent Name <span class="text-danger">*</span></label>
               <input type="text"  name="name" class="form-control" value="{{old('name')}}" placeholder="Enter Agent Name">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Models\User;
+use App\Enums\UserType;
 use Illuminate\Http\Request;
 use App\Models\Admin\UserLog;
 use App\Traits\HttpResponses;
@@ -12,12 +13,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\PlayerResource;
 use App\Http\Requests\Api\LoginRequest;
+use App\Http\Resources\RegisterResource;
 use App\Http\Requests\Api\ProfileRequest;
+use App\Http\Requests\Api\RegisterRequest;
 use App\Http\Requests\Api\ChangePasswordRequest;
 
 class AuthController extends Controller
 {
     use HttpResponses;
+
+    private const PLAYER_ROLE = 3;
 
     public function login(LoginRequest $request)
     {
@@ -49,6 +54,33 @@ class AuthController extends Controller
         ]);
 
         return $this->success(new UserResource($user), 'User login successfully.');
+    }
+
+    public function register(RegisterRequest $request)
+    {
+        $agent = User::where('referral_code', $request->referral_code)->first();
+        if($agent)
+        {
+            $inputs = $request->validated();
+
+            $userPrepare = array_merge(
+                $inputs,
+                [
+                    'user_name' => $this->generateRandomString(),
+                    'password' => Hash::make($inputs['password']),
+                    'agent_id' => $agent->id,
+                    'type' => UserType::Player,
+                ]
+            );
+    
+            $player = User::create($userPrepare);
+            $player->roles()->sync(self::PLAYER_ROLE);
+
+            return $this->success(new RegisterResource($player), 'User register successfully.');
+        }else{
+            return $this->error('', 'Not Found Agent', 401);
+        }
+       
     }
 
     public function logout()
@@ -111,5 +143,12 @@ class AuthController extends Controller
         ]);
 
         return $this->success(new PlayerResource($player), 'Update profile');
+    }
+
+    private function generateRandomString()
+    {
+        $randomNumber = mt_rand(10000000, 99999999);
+
+        return 'SB'.$randomNumber;
     }
 }
