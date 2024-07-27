@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Api\V1\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\ChangePasswordRequest;
-use App\Http\Requests\Api\LoginRequest;
-use App\Http\Requests\Api\ProfileRequest;
-use App\Http\Resources\PlayerResource;
-use App\Http\Resources\UserResource;
-use App\Models\Admin\UserLog;
 use App\Models\User;
-use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
+use App\Models\Admin\UserLog;
+use App\Traits\HttpResponses;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\PlayerResource;
+use App\Http\Requests\Api\LoginRequest;
+use App\Http\Requests\Api\ProfileRequest;
+use App\Http\Requests\Api\ChangePasswordRequest;
 
 class AuthController extends Controller
 {
