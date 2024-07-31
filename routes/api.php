@@ -37,6 +37,7 @@ Route::post('/logout', [AuthController::class, 'logout']);
 Route::get('promotion', [PromotionController::class, 'index']);
 Route::get('banner', [BannerController::class, 'index']);
 Route::get('bannerText', [BannerController::class, 'bannerText']);
+Route::get('adspopup', [BannerController::class, 'AdsBannerIndex']);
 Route::get('v1/validate', [AuthController::class, 'callback']);
 Route::get('gameTypeProducts/{id}', [GameController::class, 'gameTypeProducts']);
 Route::get('allGameProducts', [GameController::class, 'allGameProducts']);
