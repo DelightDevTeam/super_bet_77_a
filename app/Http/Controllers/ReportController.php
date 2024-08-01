@@ -55,7 +55,7 @@ class ReportController extends Controller
     }
 
     // amk
-    public function detail(Request $request, int $userId)
+    public function detail(Request $request, int $userId, int $productCode)
     {
         $report = $this->makeJoinTable()
             ->select(
@@ -71,9 +71,7 @@ class ReportController extends Controller
                 'game_lists.name as game_list_name'
             )
             ->where('users.id', $userId)
-            ->when($request->has('product_code'), function ($query) use ($request) {
-                $query->where('reports.product_code', $request->product_code);
-            })
+            ->where('reports.product_code', $productCode)
             ->when($request->has('fromDate') && $request->has('toDate'), function ($query) use ($request) {
                 $query->whereBetween('reports.settlement_date', [$request->fromDate, $request->toDate]);
             })
