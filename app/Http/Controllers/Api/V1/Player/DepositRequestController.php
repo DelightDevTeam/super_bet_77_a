@@ -24,6 +24,7 @@ class DepositRequestController extends Controller
                 'user_id' => $player->id,
                 'agent_id' => $player->agent_id,
                 'amount' => $request->amount,
+                'refrence_no' => $request->refrence_no,
                 'note' => $request->note,
             ]);
 
