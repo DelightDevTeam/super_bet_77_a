@@ -19,6 +19,8 @@ class User extends Authenticatable implements Wallet
 {
     use HasApiTokens, HasFactory, HasWalletFloat, Notifiable;
 
+    private const PLAYER_ROLE = 3;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -152,6 +154,13 @@ class User extends Authenticatable implements Wallet
         }
 
         return $query;
+    }
+
+    public function scopePlayer($query)
+    {
+        return $query->whereHas('roles', function ($query) {
+            $query->where('role_id', self::PLAYER_ROLE);
+        });
     }
 
     public static function getPlayersByAgentId(int $agentId)

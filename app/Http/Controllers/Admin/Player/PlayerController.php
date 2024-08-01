@@ -59,7 +59,7 @@ class PlayerController extends Controller
      */
     public function player_with_agent()
     {
-        $users = $this->userService->getAllUsersWithAgents();
+        $users = User::player()->with('roles')->get();
 
         return view('admin.player.list', compact('users'));
     }
