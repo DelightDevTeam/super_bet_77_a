@@ -19,16 +19,10 @@ class DepositRequestController extends Controller
         try {
             $player = Auth::user();
 
-            $image = $request->file('image');
-            $ext = $image->getClientOriginalExtension();
-            $filename = uniqid('deposit').'.'.$ext; // Generate a unique filename
-            $image->move(public_path('assets/img/depositRequest/'), $filename); // Save the file
-
             $deposit = ModelsDepositRequest::create([
                 'user_payment_id' => $request->agent_payment_id,
                 'user_id' => $player->id,
                 'agent_id' => $player->agent_id,
-                'image' => $filename,
                 'amount' => $request->amount,
                 'note' => $request->note,
             ]);

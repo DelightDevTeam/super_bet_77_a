@@ -18,7 +18,6 @@ return new class extends Migration
             $table->unsignedBigInteger('user_payment_id');
             $table->unsignedBigInteger('amount');
             $table->tinyInteger('status')->default(0);
-            $table->string('image');
             $table->text('note')->nullable();
             $table->timestamps();
 
