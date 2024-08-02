@@ -63,8 +63,10 @@ class DatabaseSeeder extends Seeder
             GamingWorldTablesSeeder::class,
             YesGetRichTablesSeeder::class,
             Live22SMTablesSeeder::class,
+            NoLimitCitySeeder::class,
+            BigTimeGamingSeeder::class,
             BannerAdsSeeder::class,
-            PaymentTypeTableSeeder::class,
+            PaymentTypeTableSeeder::class
         ]);
 
     }

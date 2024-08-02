@@ -334,6 +334,20 @@ class GameTypeProductTableSeeder extends Seeder
                 'image' => 'smart_soft.webp',
                 'rate' => '1.0000',
             ],
+
+            [
+                'product_id' => 47,
+                'game_type_id' => 1,
+                'image' => 'no_limit_city_logo.jpg',
+                'rate' => '1.0000',
+            ],
+
+            [
+                'product_id' => 48,
+                'game_type_id' => 1,
+                'image' => 'big_time_gaming.webp',
+                'rate' => '1.0000',
+            ],
         ];
 
         GameTypeProduct::insert($data);
