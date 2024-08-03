@@ -344,7 +344,7 @@ class ProductTableSeeder extends Seeder
                 'name' => 'Red Tiger',
                 'short_name' => 'RTiger',
                 'order' => 50,
-                'status' => 1
+                'status' => 0
             ],
              [
                 'code' => '1146',
