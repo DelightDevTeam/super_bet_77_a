@@ -51,7 +51,7 @@
             <td>{{ optional($log->targetUser)->name }}</td>
             {{-- <td class="text-danger">{{ $log->amountFloat }}</td> --}}
               <td>
-               <img src="{{ asset('admin_app/assets/img/arrow.png')}}" alt="arrow">
+               <img src="{{ asset('admin_app/assets/img/arrow.png')}}"  class="img-thumbnail" width="10" height="10" alt="arrow">
               </td>
             <td>{{ Auth::user()->name }}</td>
             <td class="text-success">+{{ $log->amountFloat }}</td>
