@@ -35,17 +35,16 @@
    <div class="table-responsive">
     <table class="table table-flush" id="users-search">
      <thead class="thead-light">
-
+    <tr>
+        <th>Date</th>
+        <th>To User</th>
+        <th>Amount</th>
+    </tr>
+</thead>
+<tbody>
+    @foreach($transferLogs as $log)
         <tr>
-            <th>Date</th>
-            <th>To User</th>
-            <th>Amount</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($transferLogs as $log)
-        <tr>
-            <td>{{ $log->created_at }}</td>
+            <td>{{ $log->created_at->format('Y-m-d') }}</td>
             <td>{{ optional($log->targetUser)->name }}</td>
             <td>
                 <div class="d-flex align-items-center text-{{ $log->name == 'credit_transfer' ? 'success' : 'danger' }} text-gradient text-sm font-weight-bold ms-auto">
@@ -54,7 +53,8 @@
             </td>
         </tr>
     @endforeach
-    </tbody>
+</tbody>
+
 
     </table>
    </div>
