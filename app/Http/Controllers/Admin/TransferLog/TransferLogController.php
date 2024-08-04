@@ -246,18 +246,15 @@ class TransferLogController extends Controller
     }
 
 
-    public function depositTransaferLog()
-    {
-         $transferLogs = Auth::user()->transactions()->with('targetUser')
-            ->select(DB::raw('SUM(transactions.amount) as amount')
-            )
-            ->where('transactions.type', 'credit_transfer')
-            ->first();
+   public function depositTransaferLog()
+{
+    // Get all transactions of type 'credit_transfer' for the authenticated user
+    $transferLogs = Auth::user()->transactions()
+        ->where('transactions.name', 'credit_transfer')
+        ->with('targetUser')
+        ->get();
 
-        // $withdraw = Auth::user()->transactions()->with('targetUser')->select(
-        //     DB::raw('SUM(transactions.amount) as amount'),
-        // )->where('transactions.type', 'withdraw')->first();
-        return view('admin.trans_log.deposit_log', compact('transferLogs'));
+    return view('admin.trans_log.deposit_log', compact('transferLogs'));
+}
 
-    }
 }

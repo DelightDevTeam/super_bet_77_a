@@ -44,17 +44,16 @@
     </thead>
     <tbody>
         @foreach($transferLogs as $log)
-            <tr>
-                <td>
-                  {{ $log->created_at }}
-                </td>
-                <td>{{ $log->targetUser->name }}</td>
-                <td>
-                  <div class="d-flex align-items-center text-{{$log->type =='deposit' ? 'success' : 'danger'}} text-gradient text-sm font-weight-bold ms-auto"> {{$log->type == 'deposit' ? '+' : ''}}{{ $log->amountFloat }}</div>
-                </td>
-                
-            </tr>
-        @endforeach
+        <tr>
+            <td>{{ $log->created_at }}</td>
+            <td>{{ optional($log->targetUser)->name }}</td>
+            <td>
+                <div class="d-flex align-items-center text-{{ $log->name == 'credit_transfer' ? 'success' : 'danger' }} text-gradient text-sm font-weight-bold ms-auto">
+                    {{ $log->name == 'credit_transfer' ? '+' : '' }}{{ $log->amountFloat }}
+                </div>
+            </td>
+        </tr>
+    @endforeach
     </tbody>
 
     </table>
