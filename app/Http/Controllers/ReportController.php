@@ -57,6 +57,8 @@ class ReportController extends Controller
     // amk
     public function detail(Request $request, int $userId, int $productCode)
     {
+        $player = User::find($userId);
+
         $report = $this->makeJoinTable()
             ->select(
                 'products.name as product_name',
@@ -76,43 +78,15 @@ class ReportController extends Controller
                 $query->whereBetween('reports.settlement_date', [$request->fromDate, $request->toDate]);
             })
             ->get();
-
-        $player = User::find($userId);
-
         return view('report.detail', compact('report', 'player'));
     }
 
-    // sophia
-    // public function detail(Request $request, int $userId)
-    // {
-
-    //     $report = $this->makeJoinTable()
-    //         ->select(
-    //             'products.name as product_name',
-    //             'users.user_name',
-    //             'users.id as user_id',
-    //             'reports.valid_bet_amount',
-    //             'reports.bet_amount',
-    //             'reports.payout_amount',
-    //             'reports.settlement_date'
-    //         )
-    //         ->where('users.id', $request->user_id)
-    //         ->when(isset($request->product_code), function ($query) use ($request) {
-    //             $query->where('reports.product_code', $request->product_code);
-    //         })
-    //         ->when(isset($request->fromDate) && isset($request->toDate), function ($query) use ($request) {
-    //             $query->whereBetween('reports.settlement_date', [$request->fromDate, $request->toDate]);
-    //         })
-    //         ->get();
-
-    //     $player = User::find($userId);
-
-    //     return view('report.detail', compact('report', 'player'));
-    // }
 
     public function view($user_name)
     {
-        $reports = $this->makeJoinTable()->select(
+        $player = Report::where('member_name', $user_name)->first();
+        if($player)
+            $reports = $this->makeJoinTable()->select(
             'users.user_name',
             'users.id as user_id',
             'products.name as product_name',
@@ -123,7 +97,10 @@ class ReportController extends Controller
             ->groupBy('users.user_name', 'product_name', 'product_code')
             ->where('reports.member_name', $user_name)
             ->get();
-
+        else{
+            $reports = [];
+        }
+        
         return view('report.view', compact('reports'));
     }
 
