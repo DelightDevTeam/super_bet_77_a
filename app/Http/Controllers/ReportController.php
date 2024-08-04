@@ -41,7 +41,7 @@ class ReportController extends Controller
             DB::raw('SUM(reports.bet_amount) as total_bet_amount'),
             DB::raw('SUM(reports.valid_bet_amount) as total_valid_bet_amount'),
             DB::raw('SUM(reports.payout_amount) as total_payout_amount'))
-            ->groupBy('users.user_name', 'product_name', 'product_code')
+            ->groupBy('users.user_name', 'users.id', 'products.name', 'products.code')
             ->where('reports.product_code', $code)
             ->when(isset($request->player_name), function ($query) use ($request) {
                 $query->whereBetween('reports.member_name', $request->player_name);
@@ -100,7 +100,7 @@ class ReportController extends Controller
         else{
             $reports = [];
         }
-        
+
         return view('report.view', compact('reports'));
     }
 
@@ -115,43 +115,5 @@ class ReportController extends Controller
 
         return $query;
     }
-
-    // sophia
-    // private function makeJoinTable()
-    // {
-    //     $query = User::query()->roleLimited();
-    //     $query->join('reports', 'reports.member_name', '=', 'users.user_name')
-    //         ->join('products', 'reports.product_code', '=', 'products.code')
-    //         ->where('reports.status', '101');
-
-    //     return $query;
-    // }
-
-    //     private function makeJoinTable()
-    // {
-    //     $query = User::query()->roleLimited();
-    //     $query->join('reports', 'reports.member_name', '=', 'users.user_name')
-    //           ->join('products', 'reports.product_code', '=', 'products.code')
-    //           ->join('game_lists', 'products.product_id', '=', 'game_lists.product_id')
-    //           ->select('reports.*', 'game_lists.code as game_code', 'game_lists.name as game_name')
-    //           ->where('reports.status', 101);
-
-    //     return $query;
-    // }
-
-    /*
-
-    SELECT
-        reports.*,
-        game_lists.code AS game_code,
-        game_lists.name AS game_name
-    FROM
-        reports
-    JOIN
-        game_lists ON reports.game_name = game_lists.code
-    WHERE
-        reports.status = '101';
-
-    */
 
 }
