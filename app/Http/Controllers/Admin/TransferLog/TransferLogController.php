@@ -257,5 +257,15 @@ class TransferLogController extends Controller
     return view('admin.trans_log.deposit_log', compact('transferLogs'));
 }
 
+public function withdrawTransaferLog()
+{
+    $transferLogs = Auth::user()->transactions()
+        ->where('transactions.name', 'debit_transfer')
+        ->with('targetUser')
+        ->orderBy('id', 'desc')
+        ->get();
+
+    return view('admin.trans_log.withdraw_log', compact('transferLogs'));
+}
 
 }

@@ -21,7 +21,7 @@
    <div class="card-header pb-0">
     <div class="d-lg-flex">
      <div>
-      <h5 class="mb-0">Deposit Transfer Log</h5>
+      <h5 class="mb-0">WithDraw Transfer Log</h5>
 
      </div>
      <div class="ms-auto my-auto mt-lg-0 mt-4">
@@ -37,10 +37,10 @@
      <thead class="thead-light">
     <tr>
         <th>Date</th>
-        <th>Owner</th>
+        <th>WithDraw User</th>
         {{-- <th>Amount</th> --}}
         <th><i class="fas fa-right-left"></i></th>
-        <th>To User</th>
+        <th>Owner</th>
         <th>Amount</th>
     </tr>
 </thead>
@@ -48,10 +48,10 @@
     @foreach($transferLogs as $log)
         <tr>
             <td>{{ $log->created_at->format('Y-m-d') }}</td>
-            <td>{{ Auth::user()->name }}</td>
+            <td>{{ optional($log->targetUser)->name }}</td>
             {{-- <td class="text-danger">{{ $log->amountFloat }}</td> --}}
               <td><i class="fas fa-right" style="font-size: 24px; color:black"></i></td>
-            <td>{{ optional($log->targetUser)->name }}</td>
+            <td>{{ Auth::user()->name }}</td>
             <td class="text-success">+{{ $log->amountFloat }}</td>
         </tr>
     @endforeach

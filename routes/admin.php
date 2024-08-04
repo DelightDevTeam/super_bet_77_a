@@ -124,6 +124,8 @@ Route::group([
 
     // amk 
     Route::get('credit-transafer', [TransferLogController::class, 'depositTransaferLog'])->name('DeposittransferLog');
+    Route::get('debit-transfer', [TransferLogController::class, 'withdrawTransaferLog'])->name('WithdrawtransferLog');
+
     Route::group(['prefix' => 'report'], function () {
         Route::get('index', [ReportController::class, 'index'])->name('report.index');
         Route::get('view/{user_id}', [ReportController::class, 'view'])->name('report.view');

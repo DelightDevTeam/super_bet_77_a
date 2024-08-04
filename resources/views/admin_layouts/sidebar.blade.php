@@ -58,10 +58,16 @@
       </a>
     </li>
     @endcan
-    <li class="nav-item">
+    {{-- <li class="nav-item">
       <a class="nav-link text-white " href="{{ route('admin.transferLog')}}">
         <span class="sidenav-mini-icon"> <i class="fas fa-right-left"></i> </span>
         <span class="sidenav-normal  ms-2  ps-1">Transfer Log</span>
+      </a>
+    </li> --}}
+    <li class="nav-item">
+      <a class="nav-link text-white " href="{{ url('admin/debit-transfer')}}">
+        <span class="sidenav-mini-icon"> <i class="fas fa-right-left"></i> </span>
+        <span class="sidenav-normal  ms-2  ps-1">WithDrawTransferLog</span>
       </a>
     </li>
 
