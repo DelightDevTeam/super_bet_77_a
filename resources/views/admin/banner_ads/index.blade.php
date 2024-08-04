@@ -58,13 +58,13 @@
                 <a href="{{ route('admin.adsbanners.show', $banner->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Preview Banner Detail">
                   <i class="material-icons text-secondary position-relative text-lg">visibility</i>
                 </a>
-                <form class="d-inline" action="{{ route('admin.adsbanners.destroy', $banner->id) }}" method="POST">
+                {{-- <form class="d-inline" action="{{ route('admin.adsbanners.destroy', $banner->id) }}" method="POST">
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="transparent-btn" data-bs-toggle="tooltip" data-bs-original-title="Delete Banner">
                     <i class="material-icons text-secondary position-relative text-lg">delete</i>
                   </button>
-                </form>
+                </form> --}}
               </td>
             </tr>
             @endforeach

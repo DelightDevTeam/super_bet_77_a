@@ -50,7 +50,7 @@
               <td>{{ $text->text }}</td>
               <td class="text-sm font-weight-normal">{{ $text->created_at->format('M j, Y') }}</td>
               <td>
-                <a href="{{ route('admin.text.edit', $text->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Edit Banner"><i class="material-icons-round text-secondary position-relative text-lg">mode_edit</i></a>
+                {{-- <a href="{{ route('admin.text.edit', $text->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Edit Banner"><i class="material-icons-round text-secondary position-relative text-lg">mode_edit</i></a> --}}
                 <a href="{{ route('admin.text.show', $text->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Preview Banner Detail">
                   <i class="material-icons text-secondary position-relative text-lg">visibility</i>
                 </a>

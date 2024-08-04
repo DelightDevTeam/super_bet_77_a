@@ -37,7 +37,7 @@
                 </div>
             </div>
 
-            <div class="card mt-4" id="basic-info">
+            {{-- <div class="card mt-4" id="basic-info">
                 <div class="card-header">
                     <h5>Basic Info</h5>
                 </div>
@@ -83,7 +83,7 @@
                     </div>
 
                 </div>
-            </div>
+            </div> --}}
 
             <div class="card mt-4" id="password">
                 <div class="card-header">
