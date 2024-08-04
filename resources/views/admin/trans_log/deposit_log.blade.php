@@ -38,7 +38,7 @@
     <tr>
         <th>Date</th>
         <th>Owner</th>
-        <th>Amount</th>
+        {{-- <th>Amount</th> --}}
         <th><i class="fas fa-right-left"></i></th>
         <th>To User</th>
         <th>Amount</th>
@@ -49,8 +49,8 @@
         <tr>
             <td>{{ $log->created_at->format('Y-m-d') }}</td>
             <td>{{ Auth::user()->name }}</td>
-            <td class="text-danger">{{ $log->amountFloat }}</td>
-            <td><i class="fas fa-right"></i></td>
+            {{-- <td class="text-danger">{{ $log->amountFloat }}</td> --}}
+              <td><i class="fas fa-right" style="font-size: 24px; color:black"></i></td>
             <td>{{ optional($log->targetUser)->name }}</td>
             <td class="text-success">+{{ $log->amountFloat }}</td>
         </tr>
