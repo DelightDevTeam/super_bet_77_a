@@ -239,7 +239,7 @@ class TransferLogController extends Controller
         $transferLogs = Auth::user()->transactions()->with('targetUser')->where('target_user_id', $id)->latest()->paginate();
 
         // Log the transactions for debugging
-        Log::info($transferLogs->toArray());
+        //Log::info($transferLogs->toArray());
 
         return view('admin.trans_log.detail', compact('transferLogs'));
     }
