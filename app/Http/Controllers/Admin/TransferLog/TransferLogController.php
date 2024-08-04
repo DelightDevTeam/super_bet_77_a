@@ -239,9 +239,6 @@ class TransferLogController extends Controller
 
         $transferLogs = Auth::user()->transactions()->with('targetUser')->where('target_user_id', $id)->latest()->paginate();
 
-        // Log the transactions for debugging
-        //Log::info($transferLogs->toArray());
-
         return view('admin.trans_log.detail', compact('transferLogs'));
     }
 
@@ -249,23 +246,23 @@ class TransferLogController extends Controller
    public function depositTransaferLog()
 {
     $transferLogs = Auth::user()->transactions()
-        ->where('transactions.name', 'credit_transfer')
+        ->where('transactions.type', 'withdraw')
         ->with('targetUser')
         ->orderBy('id', 'desc')
         ->get();
 
-    return view('admin.trans_log.deposit_log', compact('transferLogs'));
+            return view('admin.trans_log.deposit_log', compact('transferLogs'));
 }
 
-public function withdrawTransaferLog()
-{
-    $transferLogs = Auth::user()->transactions()
-        ->where('transactions.name', 'debit_transfer')
-        ->with('targetUser')
-        ->orderBy('id', 'desc')
-        ->get();
+    public function withdrawTransaferLog()
+    {
+        $transferLogs = Auth::user()->transactions()
+            ->where('transactions.type', 'deposit')
+            ->with('targetUser')
+            ->orderBy('id', 'desc')
+            ->get();
 
-    return view('admin.trans_log.withdraw_log', compact('transferLogs'));
-}
+        return view('admin.trans_log.withdraw_log', compact('transferLogs'));
+    }
 
 }

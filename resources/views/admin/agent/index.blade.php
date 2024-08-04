@@ -26,7 +26,7 @@
           </div>
           <div class="ms-auto my-auto mt-lg-0 mt-4">
             <div class="ms-auto my-auto">
-              <a href="{{ route('admin.agent.create') }}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; Create 
+              <a href="{{ route('admin.agent.create') }}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; Create
                 Agent</a>
               <button class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1" data-type="csv" type="button" name="button">Export</button>
             </div>
@@ -44,7 +44,6 @@
             <th>Status</th>
             <th>Balance</th>
             <th>Action</th>
-            <th>Transfer</th>
           </thead>
           <tbody>\
             {{-- kzt --}}
@@ -63,7 +62,7 @@
               <td>{{ $user->phone }}</td>
               <td>
               <small class="badge bg-gradient-{{ $user->status == 1 ? 'success' : ($user->status == 2 ? 'danger' : 'warning') }}">{{ $user->status == 1 ? "active" : ($user->status == 2 ? "inactive" : "pending") }}</small>
-            
+
               </td>
               <td>{{ number_format($user->balanceFloat,2) }}</td>
 
@@ -106,12 +105,12 @@
                   <i class="fas fa-right-left text-white me-1"></i>
                   Logs
                 </a>
-                <a href="{{ route('admin.transferLogDetail', $user->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Reports" class="btn btn-info btn-sm">
-                  <i class="fas fa-right-left text-white me-1"></i>
-                  transferLogs
-                </a>
+{{--                <a href="{{ route('admin.transferLogDetail', $user->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Reports" class="btn btn-info btn-sm">--}}
+{{--                  <i class="fas fa-right-left text-white me-1"></i>--}}
+{{--                  transferLogs--}}
+{{--                </a>--}}
 
-                
+
               </td>
             </tr>
             @endforeach

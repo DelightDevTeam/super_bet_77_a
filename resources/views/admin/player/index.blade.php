@@ -42,7 +42,6 @@
             <th>Status</th>
             <th>Balance</th>
             <th>Action</th>
-            <th>Transaction</th>
           </thead>
           <tbody>
           {{-- kzt --}}
@@ -53,7 +52,7 @@
               <td>{{ $loop->iteration }}</td>
               <td>
                 <span class="d-block">{{ $user->user_name }}</span>
-                  
+
               </td>
               <td>{{$user->name}}</td>
               <td>{{ $user->phone }}</td>
@@ -81,7 +80,7 @@
                 <a class="me-1" href="{{ route('admin.player.edit', $user->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Edit Player">
                   <i class="fas fa-pen-to-square text-info" style="font-size: 20px;"></i>
                 </a>
-                
+
               </td>
               <td>
                 <a href="{{ route('admin.player.getCashIn', $user->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Deposit To Player" class="btn btn-info btn-sm">
@@ -100,10 +99,10 @@
                   <i class="fas fa-right-left text-white me-1"></i>
                   Logs
                 </a>
-                <a href="{{ route('admin.transferLogDetail', $user->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Reports" class="btn btn-info btn-sm">
-                  <i class="fas fa-right-left text-white me-1"></i>
-                  transferLogs
-                </a>
+{{--                <a href="{{ route('admin.transferLogDetail', $user->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Reports" class="btn btn-info btn-sm">--}}
+{{--                  <i class="fas fa-right-left text-white me-1"></i>--}}
+{{--                  transferLogs--}}
+{{--                </a>--}}
           </td>
             </tr>
             @endforeach

@@ -21,14 +21,10 @@
    <div class="card-header pb-0">
     <div class="d-lg-flex">
      <div>
-      <h5 class="mb-0">WithDraw Transfer Log</h5>
+      <h5 class="mb-0">Debit Transfer Log</h5>
 
      </div>
      <div class="ms-auto my-auto mt-lg-0 mt-4">
-      <div class="ms-auto my-auto">
-       <button class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1 " data-type="csv" type="button"
-        name="button">Export</button>
-      </div>
      </div>
     </div>
    </div>
@@ -37,10 +33,9 @@
      <thead class="thead-light">
     <tr>
         <th>Date</th>
-        <th>WithDraw User</th>
-        {{-- <th>Amount</th> --}}
+        <th>From User</th>
         <th><i class="fas fa-right-left"></i></th>
-        <th>Owner</th>
+        <th>To User</th>
         <th>Amount</th>
     </tr>
 </thead>
@@ -54,7 +49,7 @@
                <img src="{{ asset('admin_app/assets/img/arrow.png')}}"  class="img-thumbnail" width="10" height="10" alt="arrow">
               </td>
             <td>{{ Auth::user()->name }}</td>
-            <td class="text-success">+{{ $log->amountFloat }}</td>
+            <td class="text-danger font-weight-bold">{{ abs($log->amountFloat) }}</td>
         </tr>
     @endforeach
 </tbody>

@@ -40,7 +40,7 @@
         </div>
       </div> --}}
       <ul class="navbar-nav  justify-content-end">
-      
+
         <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
           <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
             <div class="sidenav-toggler-inner">
@@ -50,14 +50,8 @@
             </div>
           </a>
         </li>
-        <li class="nav-item px-3">
-          <a href="javascript:;" class="nav-link text-body p-0">
-            <i class="material-icons fixed-plugin-button-nav cursor-pointer">
-              settings
-            </i>
-          </a>
-        </li>
-  
+
+
       </ul>
     </div>
   </div>

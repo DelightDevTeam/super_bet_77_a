@@ -27,13 +27,6 @@
       </a>
     </li>
 
-    {{-- <li class="nav-item">
-      <a class="nav-link text-white " href="{{ url('admin/get-bet-detail')}}">
-    <span class="sidenav-mini-icon"> <i class="fa-solid fa-chart-column"></i> </span>
-    <span class="sidenav-normal  ms-2  ps-1"> getBetDetail </span>
-    </a>
-    </li> --}}
-
     @can('agent_index')
     <li class="nav-item">
       <a class="nav-link text-white " href="{{ route('admin.agent.index')}}">
@@ -58,46 +51,10 @@
       </a>
     </li>
     @endcan
-    {{-- <li class="nav-item">
-      <a class="nav-link text-white " href="{{ route('admin.transferLog')}}">
-        <span class="sidenav-mini-icon"> <i class="fas fa-right-left"></i> </span>
-        <span class="sidenav-normal  ms-2  ps-1">Transfer Log</span>
-      </a>
-    </li> --}}
-    <li class="nav-item">
-      <a class="nav-link text-white " href="{{ url('admin/debit-transfer')}}">
-        <span class="sidenav-mini-icon"> <i class="fas fa-right-left"></i> </span>
-        <span class="sidenav-normal  ms-2  ps-1">WithDrawTransferLog</span>
-      </a>
-    </li>
-
-     <li class="nav-item">
-      <a class="nav-link text-white " href="{{ url('admin/credit-transafer')}}">
-        <span class="sidenav-mini-icon"> <i class="fas fa-right-left"></i> </span>
-        <span class="sidenav-normal  ms-2  ps-1">DepositTransferLog</span>
-      </a>
-    </li>
-
-    @can('deposit')
-    <li class="nav-item">
-      <a class="nav-link text-white " href="{{ route('admin.agent.deposit')}}">
-        <span class="sidenav-mini-icon"> <i class="fas fa-right-left"></i> </span>
-        <span class="sidenav-normal  ms-2  ps-1">Deposit Request</span>
-      </a>
-    </li>
-    @endcan
-    @can('withdraw')
-    <li class="nav-item">
-      <a class="nav-link text-white " href="{{ route('admin.agent.withdraw')}}">
-        <span class="sidenav-mini-icon"> <i class="fas fa-right-left"></i> </span>
-        <span class="sidenav-normal  ms-2  ps-1">WithDraw Request</span>
-      </a>
-    </li> 
-    @endcan
     @can('bank')
     <li class="nav-item ">
       <a class="nav-link text-white " href="{{ route('admin.paymentTypes.index') }}">
-        <span class="sidenav-mini-icon"> <i class="fa-solid fa-panorama"></i> </span>
+        <span class="sidenav-mini-icon"> <i class="fas fa-credit-card"></i> </span>
         <span class="sidenav-normal  ms-2  ps-1"> Bank Account </span>
       </a>
     </li>
@@ -153,11 +110,10 @@
       </div>
     </li>
     @endcan
-    <!-- @can('admin_access')
     <li class="nav-item">
       <a data-bs-toggle="collapse" href="#profileExample" class="nav-link text-white" aria-controls="pagesExamples" role="button" aria-expanded="false">
-        <i class="material-icons-round {% if page.brand == 'RTL' %}ms-2{% else %} me-2{% endif %}">content_paste</i>
-        <span class="nav-link-text ms-2 ps-1">Authorization</span>
+          <i class="fas fa-right-left"></i>
+        <span class="nav-link-text ms-2 ps-1">Transaction</span>
       </a>
       <div class="collapse show" id="pagesExamples">
         <ul class="nav">
@@ -165,25 +121,35 @@
             <div class="collapse " id="profileExample">
               <ul class="nav nav-sm flex-column">
                 <li class="nav-item">
-                  <a class="nav-link text-white " href="{{ route('admin.roles.index') }}">
+                  <a class="nav-link text-white " href="{{ route('admin.agent.deposit') }}">
                     <span class="sidenav-mini-icon">R</span>
-                    <span class="sidenav-normal  ms-2  ps-1">Roles</span>
+                    <span class="sidenav-normal  ms-2  ps-1">Deposit Request</span>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-white " href="{{ route('admin.permissions.index')}}">
+                  <a class="nav-link text-white " href="{{ route('admin.agent.withdraw')}}">
                     <span class="sidenav-mini-icon"> P </span>
-                    <span class="sidenav-normal  ms-2  ps-1"> Permissions </span>
+                    <span class="sidenav-normal  ms-2  ps-1"> WithDraw Request </span>
                   </a>
                 </li>
-
+                <li class="nav-item">
+                      <a class="nav-link text-white " href="{{ url('admin/debit-transfer') }}">
+                          <span class="sidenav-mini-icon">R</span>
+                          <span class="sidenav-normal  ms-2  ps-1">DebitTransactionLog</span>
+                      </a>
+                  </li>
+                <li class="nav-item">
+                      <a class="nav-link text-white " href="{{ url('admin/credit-transfer') }}">
+                          <span class="sidenav-mini-icon"> P </span>
+                          <span class="sidenav-normal  ms-2  ps-1">CreditTransactionLog</span>
+                      </a>
+                  </li>
               </ul>
             </div>
           </li>
         </ul>
       </div>
     </li>
-    @endcan -->
 
     <li class="nav-item">
       <a href="{{ route('logout') }}" onclick="event.preventDefault();

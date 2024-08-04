@@ -28,7 +28,6 @@
           <div class="ms-auto my-auto mt-lg-0 mt-4">
             <div class="ms-auto my-auto">
               <a href="{{ route('admin.paymentTypes.create') }}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; New Bank</a>
-              <button class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1" data-type="csv" type="button" name="button">Export</button>
             </div>
           </div>
         </div>
@@ -59,7 +58,7 @@
               </td>
               <td>
                 <a href="{{ route('admin.paymentTypes.edit', $payment->id) }}" data-bs-toggle="tooltip" data-bs-original-title="Edit Payment"><i class="material-icons-round text-secondary position-relative text-lg">mode_edit</i></a>
-                
+
               </td>
             </tr>
             @endforeach

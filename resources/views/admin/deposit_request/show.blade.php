@@ -64,7 +64,7 @@
   <div class="col-lg-12">
     <div class="card">
       <!-- Card header -->
-      
+
       <div class="card-body">
         <form action="{{ route('admin.agent.depositStatus',$deposit->id) }}" method="POST">
           @csrf
@@ -135,13 +135,7 @@
             </div>
 
           </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="input-group input-group-outline is-valid my-3">
-                <button type="submit" class="btn btn-primary">Player ထံမှ ငွေထုတ်ယူမည်</button>
-              </div>
-            </div>
-          </div>
+
         </form>
       </div>
     </div>
@@ -160,7 +154,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     var errorMessage =  @json(session('error'));
     var successMessage =  @json(session('success'));
-   
+
 
     @if(session()->has('success'))
     Swal.fire({
