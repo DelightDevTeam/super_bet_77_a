@@ -248,13 +248,14 @@ class TransferLogController extends Controller
 
    public function depositTransaferLog()
 {
-    // Get all transactions of type 'credit_transfer' for the authenticated user
     $transferLogs = Auth::user()->transactions()
         ->where('transactions.name', 'credit_transfer')
         ->with('targetUser')
+        ->orderBy('id', 'desc')
         ->get();
 
     return view('admin.trans_log.deposit_log', compact('transferLogs'));
 }
+
 
 }
