@@ -33,7 +33,7 @@ class ProductTableSeeder extends Seeder
                 'name' => 'Joker',
                 'short_name' => 'Joker',
                 'order' => 12,
-                'status' => 0
+                'status' => 1
 
             ],
             [
@@ -73,7 +73,7 @@ class ProductTableSeeder extends Seeder
                 'short_name' => 'VG',
                 'order' => 17,
                 'game_list_status' => '0',
-                'status' => 0
+                'status' => 1
             ],
             [
                 'code' => '1050',
@@ -221,7 +221,7 @@ class ProductTableSeeder extends Seeder
                 'name' => 'Evolution Gaming',
                 'short_name' => 'EG',
                 'order' => 37,
-                'status' => 0
+                'status' => 1
             ],
             [
                 'code' => '1004',
@@ -235,7 +235,7 @@ class ProductTableSeeder extends Seeder
                 'name' => 'PG Soft',
                 'short_name' => 'PGSoft',
                 'order' => 2,
-                'status' => 0
+                'status' => 1
             ],
             [
                 'code' => '1009',
@@ -271,7 +271,7 @@ class ProductTableSeeder extends Seeder
                 'short_name' => 'K855',
                 'order' => 40,
                 'game_list_status' => '0',
-                'status' => 0
+                'status' => 1
             ],
             [
                 'code' => '1041',
@@ -292,7 +292,7 @@ class ProductTableSeeder extends Seeder
                 'name' => 'YesGetRich',
                 'short_name' => 'YesgetRich',
                 'order' => 43,
-                'status' => 0
+                'status' => 1
             ],
             [
                 'code' => '1089',
@@ -322,14 +322,14 @@ class ProductTableSeeder extends Seeder
                 'name' => 'Mr Slotty',
                 'short_name' => 'MrSlotty',
                 'order' => 48,
-                'status' => 0
+                'status' => 1
             ],
             [
                 'code' => '1110',
                 'name' => 'Red Tiger',
                 'short_name' => 'RedTiger',
                 'order' => 49,
-                'status' => 0
+                'status' => 1
             ],
             [
                 'code' => '1100',
@@ -340,8 +340,8 @@ class ProductTableSeeder extends Seeder
             ],
 
             [
-                'code' => '1110',
-                'name' => 'Red Tiger',
+                'code' => '11112',
+                'name' => 'Tiger',
                 'short_name' => 'RTiger',
                 'order' => 50,
                 'status' => 0
@@ -351,7 +351,7 @@ class ProductTableSeeder extends Seeder
                 'name' => 'No Limit City',
                 'short_name' => 'No Limit City',
                 'order' => 51,
-                'status' => 1
+                'status' => 0
             ],
             [
                 'code' => '1147',
