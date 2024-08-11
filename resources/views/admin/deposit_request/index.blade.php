@@ -36,6 +36,7 @@
         <th>Payment Method</th>
         <th>Bank Account Name</th>
         <th>Bank Account Number</th>
+        <th>TransactionNo</th>
         <th>Status</th>
         <th>Created_at</th>
         <th>Action</th>
@@ -55,6 +56,7 @@
           {{-- <td>
           <span class="badge text-bg-{{ $deposit->status == 0 ? 'danger' : 'success' }} text-white mb-2">{{ $deposit->status == 0 ? "pending" : "done" }}</span>
           </td> --}}
+          <td>{{ $deposit->refrence_no }}</td>
 
           <td>
             @if ($deposit->status == 0)

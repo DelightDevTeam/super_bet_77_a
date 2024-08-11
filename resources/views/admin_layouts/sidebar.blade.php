@@ -120,6 +120,7 @@
           <li class="nav-item ">
             <div class="collapse " id="profileExample">
               <ul class="nav nav-sm flex-column">
+                 @can('withdraw')
                 <li class="nav-item">
                   <a class="nav-link text-white " href="{{ route('admin.agent.deposit') }}">
                     <span class="sidenav-mini-icon">R</span>
@@ -132,6 +133,7 @@
                     <span class="sidenav-normal  ms-2  ps-1"> WithDraw Request </span>
                   </a>
                 </li>
+                @endcan
                 <li class="nav-item">
                       <a class="nav-link text-white " href="{{ url('admin/debit-transfer') }}">
                           <span class="sidenav-mini-icon">R</span>
