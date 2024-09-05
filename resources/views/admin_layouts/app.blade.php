@@ -42,7 +42,7 @@
     }
   </script>
   <!-- Github buttons -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  {{-- <script async defer src="https://buttons.github.io/buttons.js"></script> --}}
   <script src="{{asset('admin_app/assets/js/material-dashboard.min.js?v=3.0.6')}}"></script>
 
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->

@@ -24,5 +24,5 @@
 
   <!-- Nepcha Analytics (nepcha.com) -->
   <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
-  <script defer data-site="https://delightmyanmar.online" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+  {{-- <script defer data-site="https://delightmyanmar.online" src="https://api.nepcha.com/js/nepcha-analytics.js"></script> --}}
 </head>

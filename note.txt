@@ -10,3 +10,5 @@ php -r "file_put_contents('/var/www/html/pan666_a/storage/logs/laravel.log', '')
     // });
 
     livesportapi.online
+
+    https://77sportsmm.com/api
