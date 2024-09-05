@@ -13,6 +13,7 @@ use App\Services\WalletService;
 use App\Models\Admin\TransferLog;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AgentRequest;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -369,14 +370,18 @@ class AgentController extends Controller
         ->orderBy('id', 'desc')
         ->get();
 
-    // Calculate total admin-to-agent Credit Transfers
+     // Fetch all transactions related to admin and agents
     $adminId = auth()->user()->id;  // Assuming the current logged-in user is the admin
-    $totalAdminToAgentTransfers = Transaction::where('type', 'deposit')
+    $transfers = Transaction::where('type', 'deposit')
         ->where('name', 'credit_transfer')
-        ->where('payable_id', $adminId)  // Admin as the payable entity
-        ->sum('amount');  // Summing the total amount of transfers
+        ->where('payable_id', $adminId)
+        ->get();  // Get transactions instead of summing
 
-    // Pass totalTransfers to the view
+    // Log or check the transactions in the view
+    Log::info('Transactions:', ['transfers' => $transfers]);
+
+    // Now sum the total amount
+    $totalAdminToAgentTransfers = $transfers->sum('amount');  // Sum the total amount
     return view('admin.agent.admin_to_agent_tran_index', compact('users', 'totalAdminToAgentTransfers'));
 }
 
