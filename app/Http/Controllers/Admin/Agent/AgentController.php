@@ -372,14 +372,14 @@ class AgentController extends Controller
 
      // Fetch all transactions related to admin and agents
     $adminId = auth()->user()->id;  // Assuming the current logged-in user is the admin
-    $transfers = Transaction::where('type', 'deposit')
-        ->where('name', 'credit_transfer')
+    $transfers = Transaction::where
+        ('name', 'credit_transfer')
         ->where('payable_id', $adminId)
         ->get();  // Get transactions instead of summing
 
     // Log or check the transactions in the view
     Log::info('Transactions:', ['transfers' => $transfers]);
-
+    Log::info(DB::getQueryLog());  // Log the executed query
     // Now sum the total amount
     $totalAdminToAgentTransfers = $transfers->sum('amount');  // Sum the total amount
     return view('admin.agent.admin_to_agent_tran_index', compact('users', 'totalAdminToAgentTransfers'));
