@@ -22,7 +22,7 @@
         <div class="d-lg-flex">
           <div>
             <h5 class="mb-0">Agent List Dashboards</h5>
-            <h2 class="text-center">Total Admin to Agent Transfers: {{ number_format($totalTransfers, 4) }}</h2>
+           
           </div>
           <div class="ms-auto my-auto mt-lg-0 mt-4">
             <div class="ms-auto my-auto">
@@ -35,16 +35,37 @@
       </div>
       <div class="table-responsive">
         <table class="table table-flush" id="users-search">
-          <thead class="thead-light">
-            <th>#</th>
-            <th>AgentName</th>
-            <th>AgentID</th>
-            <th>Action</th>
-          </thead>
-          <tbody>
-           
-          </tbody>
+                      <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Agent Name</th>
+                    <th>Agent ID</th>
+                    <th>Phone</th>
+                    <th>Status</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($users as $user)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->agent_id }}</td>
+                    <td>{{ $user->phone }}</td>
+                    <td>
+                        @if ($user->status == 'active')
+                            <span class="badge bg-success">ACTIVE</span>
+                        @else
+                            <span class="badge bg-danger">INACTIVE</span>
+                        @endif
+                    </td>
+                    <td>{{ number_format($user->wallet->balanceFloat, 2) }}</td>
+                </tr>
+                @endforeach
+            </tbody>
         </table>
+
+        <h3>Total Admin to Agent Transfers: {{ number_format($totalAdminToAgentTransfers, 2) }}</h3>
       </div>
     </div>
   </div>

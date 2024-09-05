@@ -354,17 +354,30 @@ class AgentController extends Controller
 
     public function getTotalAdminToAgentTransfers()
 {
-    // Get the current admin user's ID
-    $adminId = Auth::id();
+    abort_if(
+        Gate::denies('agent_index'),
+        Response::HTTP_FORBIDDEN,
+        '403 Forbidden |You cannot  Access this page because you do not have permission'
+    );
 
-    // Query to sum all 'CreditTransfer' transactions from admin to agents
-    $totalTransfers = Transaction::where('payable_id', $adminId)
-        ->where('type', 'deposit')  // Ensure it is a deposit
-        ->whereJsonContains('meta->name', 'credit_transfer')  // Use this if 'name' is stored in JSON format
-        ->sum('amount');
+    // Fetch users with the agent role
+    $users = User::with('roles')
+        ->whereHas('roles', function ($query) {
+            $query->where('role_id', self::AGENT_ROLE);
+        })
+        ->where('agent_id', auth()->id())
+        ->orderBy('id', 'desc')
+        ->get();
+
+    // Calculate total admin-to-agent Credit Transfers
+    $adminId = auth()->user()->id;  // Assuming the current logged-in user is the admin
+    $totalAdminToAgentTransfers = Transaction::where('type', 'deposit')
+        ->where('name', 'credit_transfer')
+        ->where('payable_id', $adminId)  // Admin as the payable entity
+        ->sum('amount');  // Summing the total amount of transfers
 
     // Pass totalTransfers to the view
-    return view('admin.agent.admin_to_agent_tran_index', compact('totalTransfers'));
+    return view('admin.agent.admin_to_agent_tran_index', compact('users', 'totalAdminToAgentTransfers'));
 }
 
 
