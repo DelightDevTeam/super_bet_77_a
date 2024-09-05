@@ -12,3 +12,8 @@ php -r "file_put_contents('/var/www/html/pan666_a/storage/logs/laravel.log', '')
     livesportapi.online
 
     https://77sportsmm.com/api
+
+    Super Bet 
+
+1. transaction တွင် Agent/User id ထပ်ထည့်ရန်။
+2. adminရောagentရော က  တစ်လအတွင်းရောင်းထားတဲ့ စာရင်း  agentတစ်ယောက်ချင်းစီရဲ့လက်အောက်မှာရှိတဲ့plyaer အားလုံး ရဲ့အနိုင်အရှုး total ကိုကြည့်လိုရရန်။

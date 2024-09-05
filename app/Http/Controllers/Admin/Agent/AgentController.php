@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers\Admin\Agent;
 
+use Exception;
+use App\Models\User;
+use App\Enums\UserType;
+use App\Models\Transaction;
+use Illuminate\Http\Request;
 use App\Enums\TransactionName;
 use App\Enums\TransactionType;
-use App\Enums\UserType;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\AgentRequest;
-use App\Http\Requests\TransferLogRequest;
-use App\Models\Admin\TransferLog;
-use App\Models\User;
 use App\Services\WalletService;
-use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Admin\TransferLog;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\AgentRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\TransferLogRequest;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -350,4 +351,21 @@ class AgentController extends Controller
 
         return $randomString;
     }
+
+    public function getTotalAdminToAgentTransfers()
+{
+    // Get the current admin user's ID
+    $adminId = Auth::id();
+
+    // Query to sum all 'CreditTransfer' transactions from admin to agents
+    $totalTransfers = Transaction::where('payable_id', $adminId)
+        ->where('type', 'deposit')  // Ensure it is a deposit
+        ->whereJsonContains('meta->name', 'credit_transfer')  // Use this if 'name' is stored in JSON format
+        ->sum('amount');
+
+    // Pass totalTransfers to the view
+    return view('admin.agent.admin_to_agent_tran_index', compact('totalTransfers'));
+}
+
+
 }

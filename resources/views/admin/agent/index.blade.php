@@ -45,7 +45,7 @@
             <th>Balance</th>
             <th>Action</th>
           </thead>
-          <tbody>\
+          <tbody>
             {{-- kzt --}}
             @if(isset($users))
             @if(count($users)>0)
