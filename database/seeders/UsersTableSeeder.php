@@ -35,7 +35,7 @@ class UsersTableSeeder extends Seeder
             'status' => 1,
             'is_changed_password' => 1,
             'type' => $type->value,
-            'referral_code' => $referral_code
+            'referral_code' => $referral_code,
         ]);
     }
 }

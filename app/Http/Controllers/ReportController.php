@@ -78,26 +78,26 @@ class ReportController extends Controller
                 $query->whereBetween('reports.settlement_date', [$request->fromDate, $request->toDate]);
             })
             ->get();
+
         return view('report.detail', compact('report', 'player'));
     }
-
 
     public function view($user_name)
     {
         $player = Report::where('member_name', $user_name)->first();
-        if($player)
+        if ($player) {
             $reports = $this->makeJoinTable()->select(
-            'users.user_name',
-            'users.id as user_id',
-            'products.name as product_name',
-            'products.code as product_code',
-            DB::raw('SUM(reports.bet_amount) as total_bet_amount'),
-            DB::raw('SUM(reports.valid_bet_amount) as total_valid_bet_amount'),
-            DB::raw('SUM(reports.payout_amount) as total_payout_amount'))
-            ->groupBy('users.user_name', 'product_name', 'product_code')
-            ->where('reports.member_name', $user_name)
-            ->get();
-        else{
+                'users.user_name',
+                'users.id as user_id',
+                'products.name as product_name',
+                'products.code as product_code',
+                DB::raw('SUM(reports.bet_amount) as total_bet_amount'),
+                DB::raw('SUM(reports.valid_bet_amount) as total_valid_bet_amount'),
+                DB::raw('SUM(reports.payout_amount) as total_payout_amount'))
+                ->groupBy('users.user_name', 'product_name', 'product_code')
+                ->where('reports.member_name', $user_name)
+                ->get();
+        } else {
             $reports = [];
         }
 
@@ -115,5 +115,4 @@ class ReportController extends Controller
 
         return $query;
     }
-
 }

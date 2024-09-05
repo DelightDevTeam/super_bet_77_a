@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers\Api\V1\Auth;
 
-use App\Models\User;
 use App\Enums\UserType;
-use Illuminate\Http\Request;
-use App\Models\Admin\UserLog;
-use App\Traits\HttpResponses;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Http\Resources\PlayerResource;
-use App\Http\Resources\ContactResource;
+use App\Http\Requests\Api\ChangePasswordRequest;
 use App\Http\Requests\Api\LoginRequest;
-use App\Http\Resources\RegisterResource;
 use App\Http\Requests\Api\ProfileRequest;
 use App\Http\Requests\Api\RegisterRequest;
-use App\Http\Requests\Api\ChangePasswordRequest;
+use App\Http\Resources\ContactResource;
+use App\Http\Resources\PlayerResource;
+use App\Http\Resources\RegisterResource;
+use App\Http\Resources\UserResource;
+use App\Models\Admin\UserLog;
+use App\Models\User;
+use App\Traits\HttpResponses;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -60,8 +60,7 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $agent = User::where('referral_code', $request->referral_code)->first();
-        if($agent)
-        {
+        if ($agent) {
             $inputs = $request->validated();
 
             $userPrepare = array_merge(
@@ -78,7 +77,7 @@ class AuthController extends Controller
             $player->roles()->sync(self::PLAYER_ROLE);
 
             return $this->success(new RegisterResource($player), 'User register successfully.');
-        }else{
+        } else {
             return $this->error('', 'Not Found Agent', 401);
         }
 
@@ -145,12 +144,14 @@ class AuthController extends Controller
 
         return $this->success(new PlayerResource($player), 'Update profile');
     }
+
     public function contact()
     {
         $player = Auth::user();
 
         return $this->success(new ContactResource($player->parent), 'Contact List');
     }
+
     private function generateRandomString()
     {
         $randomNumber = mt_rand(10000000, 99999999);

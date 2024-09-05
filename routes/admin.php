@@ -1,32 +1,32 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ReportController;
-use App\Http\Controllers\Admin\LoginController;
-use App\Http\Controllers\Admin\RolesController;
-use App\Http\Controllers\Admin\BannerController;
-use App\Http\Controllers\Admin\PaymentController;
-use App\Http\Controllers\Admin\ProfileController;
-use App\Http\Controllers\Admin\GameListController;
-use App\Http\Controllers\Admin\PromotionController;
-use App\Http\Controllers\Admin\BannerTextController;
-use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\Agent\AgentController;
-use App\Http\Controllers\Report\TestReportController;
-use App\Http\Controllers\Admin\GetBetDetailController;
-use App\Http\Controllers\Admin\Master\MasterController;
-use App\Http\Controllers\Admin\Player\PlayerController;
-use App\Http\Controllers\Admin\GameTypeProductController;
 use App\Http\Controllers\Admin\BannerAds\BannerAdsController;
+use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\BannerTextController;
 use App\Http\Controllers\Admin\Deposit\DepositRequestController;
+use App\Http\Controllers\Admin\GameListController;
+use App\Http\Controllers\Admin\GameTypeProductController;
+use App\Http\Controllers\Admin\GetBetDetailController;
+use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\Master\MasterController;
+use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PaymentTypeController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\Player\PlayerController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\PromotionController;
+use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\TransferLog\TransferLogController;
 use App\Http\Controllers\Admin\WithDraw\WithDrawRequestController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Report\TestReportController;
+use App\Http\Controllers\ReportController;
+use Illuminate\Support\Facades\Route;
 
 Route::group([
     'prefix' => 'admin', 'as' => 'admin.',
-    'middleware' => ['auth', 'checkBanned']
+    'middleware' => ['auth', 'checkBanned'],
 ], function () {
     Route::post('test', function () {
         dd('here');
@@ -55,12 +55,9 @@ Route::group([
 
     Route::get('/players-list', [PlayerController::class, 'player_with_agent'])->name('playerListForAdmin');
 
-
-
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::post('profile/change-password/{user}', [ProfileController::class, 'updatePassword'])
         ->name('profile.updatePassword');
-
 
     // user profile route get method
     Route::put('/change-password', [ProfileController::class, 'newPassword'])->name('changePassword');
@@ -76,7 +73,7 @@ Route::group([
     Route::get('gametypes', [GameTypeProductController::class, 'index'])->name('gametypes.index');
     Route::get('gametypes/{game_type_id}/product/{product_id}', [GameTypeProductController::class, 'edit'])->name('gametypes.edit');
     Route::post('gametypes/{game_type_id}/product/{product_id}', [GameTypeProductController::class, 'update'])->name('gametypes.update');
-     // game list start
+    // game list start
     Route::get('all-game-lists', [GameListController::class, 'index'])->name('gameLists.index');
     Route::get('all-game-lists/{id}', [GameListController::class, 'edit'])->name('gameLists.edit');
     Route::post('all-game-lists/{id}', [GameListController::class, 'update'])->name('gameLists.update');
@@ -104,7 +101,6 @@ Route::group([
     Route::put('master/{id}/ban', [MasterController::class, 'banMaster'])->name('master.ban');
     Route::get('master-changepassword/{id}', [MasterController::class, 'getChangePassword'])->name('master.getChangePassword');
     Route::post('master-changepassword/{id}', [MasterController::class, 'makeChangePassword'])->name('master.makeChangePassword');
-
 
     Route::get('withdraw', [WithDrawRequestController::class, 'index'])->name('agent.withdraw');
     Route::post('withdraw/{withdraw}', [WithDrawRequestController::class, 'statusChangeIndex'])->name('agent.withdrawStatusUpdate');

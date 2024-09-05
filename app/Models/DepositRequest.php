@@ -22,5 +22,4 @@ class DepositRequest extends Model
     {
         return $this->belongsTo(UserPayment::class);
     }
-
 }

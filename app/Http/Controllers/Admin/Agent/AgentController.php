@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers\Admin\Agent;
 
-use Exception;
-use App\Models\User;
-use App\Enums\UserType;
-use App\Models\Transaction;
-use Illuminate\Http\Request;
 use App\Enums\TransactionName;
 use App\Enums\TransactionType;
-use App\Services\WalletService;
-use App\Models\Admin\TransferLog;
-use Illuminate\Support\Facades\DB;
-use App\Http\Requests\AgentRequest;
-use Illuminate\Support\Facades\Log;
+use App\Enums\UserType;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AgentRequest;
+use App\Http\Requests\TransferLogRequest;
+use App\Models\Admin\TransferLog;
+use App\Models\Transaction;
+use App\Models\User;
+use App\Services\WalletService;
+use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\TransferLogRequest;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -196,7 +196,6 @@ class AgentController extends Controller
         return view('admin.agent.cash_out', compact('agent'));
     }
 
-
     public function makeCashIn(TransferLogRequest $request, $id)
     {
 
@@ -262,7 +261,6 @@ class AgentController extends Controller
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Money fill request submitted successfully!');
     }
-
 
     public function getTransferDetail($id)
     {
@@ -341,7 +339,8 @@ class AgentController extends Controller
             ->with('username', $agent->user_name);
     }
 
-    private function generateReferralCode($length = 8) {
+    private function generateReferralCode($length = 8)
+    {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -354,36 +353,34 @@ class AgentController extends Controller
     }
 
     public function getTotalAdminToAgentTransfers()
-{
-    abort_if(
-        Gate::denies('agent_index'),
-        Response::HTTP_FORBIDDEN,
-        '403 Forbidden |You cannot  Access this page because you do not have permission'
-    );
+    {
+        abort_if(
+            Gate::denies('agent_index'),
+            Response::HTTP_FORBIDDEN,
+            '403 Forbidden |You cannot  Access this page because you do not have permission'
+        );
 
-    // Fetch users with the agent role
-    $users = User::with('roles')
-        ->whereHas('roles', function ($query) {
-            $query->where('role_id', self::AGENT_ROLE);
-        })
-        ->where('agent_id', auth()->id())
-        ->orderBy('id', 'desc')
-        ->get();
+        // Fetch users with the agent role
+        $users = User::with('roles')
+            ->whereHas('roles', function ($query) {
+                $query->where('role_id', self::AGENT_ROLE);
+            })
+            ->where('agent_id', auth()->id())
+            ->orderBy('id', 'desc')
+            ->get();
 
-     // Fetch all transactions related to admin and agents
-    $adminId = auth()->user()->id;  // Assuming the current logged-in user is the admin
-    $transfers = Transaction::where
-        ('name', 'credit_transfer')
-        ->where('payable_id', $adminId)
-        ->get();  // Get transactions instead of summing
+        // Fetch all transactions related to admin and agents
+        $adminId = auth()->user()->id;  // Assuming the current logged-in user is the admin
+        $transfers = Transaction::where('type', 'withdraw')->where('name', 'credit_transfer')
+            ->where('payable_id', $adminId)
+            ->get();  // Get transactions instead of summing
 
-    // Log or check the transactions in the view
-    Log::info('Transactions:', ['transfers' => $transfers]);
-    Log::info(DB::getQueryLog());  // Log the executed query
-    // Now sum the total amount
-    $totalAdminToAgentTransfers = $transfers->sum('amount');  // Sum the total amount
-    return view('admin.agent.admin_to_agent_tran_index', compact('users', 'totalAdminToAgentTransfers'));
-}
+        // Log or check the transactions in the view
+        Log::info('Transactions:', ['transfers' => $transfers]);
+        //Log::info(DB::getQueryLog());  // Log the executed query
+        // Now sum the total amount
+        $totalAdminToAgentTransfers = $transfers->sum('amount');  // Sum the total amount
 
-
+        return view('admin.agent.admin_to_agent_tran_index', compact('users', 'totalAdminToAgentTransfers'));
+    }
 }

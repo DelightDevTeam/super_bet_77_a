@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin\TransferLog;
 
-use App\Models\User;
+use App\Http\Controllers\Controller;
+use App\Models\Admin\TransferLog;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Models\Admin\TransferLog;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 
 class TransferLogController extends Controller
 {
@@ -36,7 +36,6 @@ class TransferLogController extends Controller
         return view('admin.trans_log.detail', compact('transferLogs'));
     }
 
-
     public function depositTransaferLog()
     {
         $transferLogs = Auth::user()->transactions()
@@ -60,5 +59,4 @@ class TransferLogController extends Controller
 
         return view('admin.trans_log.withdraw_log', compact('transferLogs'));
     }
-
 }

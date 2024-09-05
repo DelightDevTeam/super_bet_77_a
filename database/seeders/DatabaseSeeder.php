@@ -66,7 +66,7 @@ class DatabaseSeeder extends Seeder
             NoLimitCitySeeder::class,
             BigTimeGamingSeeder::class,
             BannerAdsSeeder::class,
-            PaymentTypeTableSeeder::class
+            PaymentTypeTableSeeder::class,
         ]);
 
     }
