@@ -149,19 +149,8 @@ class AgentController extends Controller
             '403 Forbidden |You cannot  Access this page because you do not have permission'
         );
 
-        $request->validate([
-            'name' => 'required|min:3|unique:users,name,'.$id,
-            'player_name' => 'required|string',
-            'phone' => ['nullable', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'unique:users,phone,'.$id],
-        ]);
-
         $user = User::find($id);
-        $user->update([
-            'name' => $request->name,
-            'phone' => $request->phone,
-            'player_name' => $request->player_name,
-        ]);
-
+        $user->update($request->all());
         return redirect()->back()
             ->with('success', 'Agent Updated successfully');
     }
@@ -292,7 +281,7 @@ class AgentController extends Controller
         );
 
         $user = User::find($id);
-        $user->update(['status' => $user->status == 1 ? 2 : 1]);
+        $user->update(['status' => $user->status == 1 ? 0 : 1]);
         if (Auth::check() && Auth::id() == $id) {
             Auth::logout();
         }
