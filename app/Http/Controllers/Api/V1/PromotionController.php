@@ -10,6 +10,11 @@ class PromotionController extends Controller
 {
     use HttpResponses;
 
+    public function __construct()
+    {
+        $this->middleware('checkBanned');
+    }
+    
     public function index()
     {
         $data = Promotion::all();

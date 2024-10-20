@@ -25,6 +25,11 @@ class AuthController extends Controller
 
     private const PLAYER_ROLE = 3;
 
+    public function __construct()
+    {
+        $this->middleware('checkBanned');
+    }
+
     public function login(LoginRequest $request)
     {
         $credentials = $request->only('user_name', 'password');

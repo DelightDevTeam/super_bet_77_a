@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Log;
 
 class TransactionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('checkBanned');
+    }
+    
     public function createTransaction(Request $request)
     {
         // Validate the request data

@@ -13,6 +13,11 @@ class PaymentTypeController extends Controller
 {
     use HttpResponses;
 
+    public function __construct()
+    {
+        $this->middleware('checkBanned');
+    }
+    
     public function get()
     {
         $data = PaymentType::all();

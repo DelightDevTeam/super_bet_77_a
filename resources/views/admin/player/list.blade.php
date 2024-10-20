@@ -38,10 +38,9 @@
     <table class="table table-flush" id="roles-search">
      <thead class="thead-light">
             <tr>
-                <th>User ID</th>
-                <th>User Name</th>
-                <th>User Phone</th>
-                <th>Agent ID</th>
+                <th>PlayerId</th>
+                <th>Player Name</th>
+                <th>Phone</th>
                 <th>Creator</th>
                 <th>Agent Phone</th>
                 <th>Balance</th>
@@ -50,10 +49,9 @@
         <tbody>
             @foreach ($users as $user)
                 <tr>
-                    <td>{{ $user->id }}</td>
+                    <td>{{ $user->user_name }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->phone }}</td>
-                    <td>{{ $user->agent ? $user->agent->id : 'N/A' }}</td>
                     <td>{{ $user->agent ? $user->agent->name : 'N/A' }}</td>
                     <td>{{ $user->agent ? $user->agent->phone : 'N/A' }}</td>
                     <td>{{ $user->balanceFloat }}</td>

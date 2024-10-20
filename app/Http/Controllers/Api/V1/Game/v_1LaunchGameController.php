@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Http;
 
 class LaunchGameController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('checkBanned');
+    }
+    
     public function launchGame(Request $request)
     {
         // Replace these with actual values you receive from the request or configuration

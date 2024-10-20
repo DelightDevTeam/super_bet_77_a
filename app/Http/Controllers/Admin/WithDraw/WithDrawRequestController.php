@@ -15,7 +15,7 @@ class WithDrawRequestController extends Controller
 {
     public function index()
     {
-        $withdraws = WithDrawRequest::with(['user', 'paymentType'])->where('agent_id', Auth::id())->get();
+        $withdraws = WithDrawRequest::with(['user', 'paymentType'])->where('agent_id', Auth::id())->orderby('id', 'desc')->get();
 
         return view('admin.withdraw_request.index', compact('withdraws'));
     }

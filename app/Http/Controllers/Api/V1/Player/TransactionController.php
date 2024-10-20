@@ -12,6 +12,11 @@ class TransactionController extends Controller
 {
     use HttpResponses;
 
+    public function __construct()
+    {
+        $this->middleware('checkBanned');
+    }
+    
     public function index(Request $request)
     {
         $type = $request->get('type');

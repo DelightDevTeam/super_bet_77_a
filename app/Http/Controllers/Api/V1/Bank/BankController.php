@@ -14,6 +14,11 @@ class BankController extends Controller
 {
     use HttpResponses;
 
+    public function __construct()
+    {
+        $this->middleware('checkBanned');
+    }
+    
     public function all()
     {
         $data = Bank::all();

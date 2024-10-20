@@ -33,23 +33,28 @@
      <thead class="thead-light">
     <tr>
         <th>Date</th>
+        <th>AgentId</th>
+        <th>PlayerId</th>
         <th>From User</th>
         <th><i class="fas fa-right-left"></i></th>
         <th>To User</th>
         <th>Amount</th>
+        <th>Note</th>
     </tr>
 </thead>
 <tbody>
     @foreach($transferLogs as $log)
         <tr>
-            <td>{{ $log->created_at->format('Y-m-d') }}</td>
-            <td>{{ optional($log->targetUser)->name }}</td>
-            {{-- <td class="text-danger">{{ $log->amountFloat }}</td> --}}
+        <td>{{ $log->created_at->format('Y-m-d H:m:i') }}</td>
+        <td>{{Auth::user()->user_name}}</td>
+        <td>{{$log->targetUser->user_name}}</td>
+        <td>{{ optional($log->targetUser)->name }}</td>
               <td>
                <img src="{{ asset('admin_app/assets/img/arrow.png')}}"  class="img-thumbnail" width="10" height="10" alt="arrow">
               </td>
             <td>{{ Auth::user()->name }}</td>
             <td class="text-danger font-weight-bold">{{ abs($log->amountFloat) }}</td>
+            <td>{{$log->note}}</td>
         </tr>
     @endforeach
 </tbody>
