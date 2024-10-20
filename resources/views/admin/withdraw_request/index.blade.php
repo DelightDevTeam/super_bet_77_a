@@ -36,6 +36,7 @@
                         <th>Bank Account Name</th>
                         <th>Bank Account Number</th>
                         <th>Status</th>
+                        <th>Note</th>
                         <th>Created_at</th>
                         <th>Action</th>
                         </thead>
@@ -59,7 +60,7 @@
                                         <span class="badge text-bg-danger text-white mb-2">Rejected</span>
                                     @endif
                                 </td>
-
+                                <td>{{ $withdraw->log}}</td>
                                 <td>{{ $withdraw->created_at->format('d-m-Y') }}</td>
                                 <td>
                                     <div class="d-flex align-items-center">

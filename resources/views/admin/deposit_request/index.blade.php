@@ -38,6 +38,7 @@
         <th>Bank Account Number</th>
         <th>TransactionNo</th>
         <th>Status</th>
+        <th>Note</th>
         <th>Created_at</th>
         <th>Action</th>
       </thead>
@@ -53,9 +54,7 @@
           <td>{{ $deposit->userPayment->paymentType->name }}</td>
           <td>{{$deposit->userPayment->account_name}}</td>
           <td>{{$deposit->userPayment->account_no}}</td>
-          {{-- <td>
-          <span class="badge text-bg-{{ $deposit->status == 0 ? 'danger' : 'success' }} text-white mb-2">{{ $deposit->status == 0 ? "pending" : "done" }}</span>
-          </td> --}}
+  
           <td>{{ $deposit->refrence_no }}</td>
 
           <td>
@@ -68,7 +67,7 @@
             @endif
           </td>
 
-
+          <td>{{ $deposit->note }}</td>
           <td>{{ $deposit->created_at->format('d-m-Y') }}</td>
           <td>
     <div class="d-flex align-items-center">

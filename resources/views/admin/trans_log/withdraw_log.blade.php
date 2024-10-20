@@ -39,7 +39,6 @@
         <th><i class="fas fa-right-left"></i></th>
         <th>To User</th>
         <th>Amount</th>
-        <th>Note</th>
     </tr>
 </thead>
 <tbody>
@@ -54,7 +53,6 @@
               </td>
             <td>{{ Auth::user()->name }}</td>
             <td class="text-danger font-weight-bold">{{ abs($log->amountFloat) }}</td>
-            <td>{{$log->note}}</td>
         </tr>
     @endforeach
 </tbody>
