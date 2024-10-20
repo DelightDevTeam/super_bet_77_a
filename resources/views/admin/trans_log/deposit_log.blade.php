@@ -39,10 +39,13 @@
               <th><i class="fas fa-right-left"></i></th>
               <th>To User</th>
               <th>Amount</th>
+              <th>Note</th>
             </tr>
           </thead>
           <tbody>
             @foreach($transferLogs as $log)
+            @dd($log);
+
             <tr>
               <td>{{ $log->created_at->format('Y-m-d H:m:i') }}</td>
               <td>{{Auth::user()->user_name}}</td>
@@ -51,6 +54,7 @@
               <td></td>
               <td>{{ optional($log->targetUser)->name }}</td>
               <td class="text-success font-weight-bold">{{abs($log->amountFloat) }}</td>
+              <td>{{$log->note}}</td>
             </tr>
             @endforeach
           </tbody>
