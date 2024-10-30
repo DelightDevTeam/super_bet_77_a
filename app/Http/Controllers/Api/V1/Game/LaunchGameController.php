@@ -15,6 +15,11 @@ class LaunchGameController extends Controller
 
     private const ENG_LANGUAGE_CODE = 1;
 
+    public function __construct()
+    {
+        $this->middleware('checkBanned');
+    }
+    
     public function launchGame(Request $request)
     {
         //Log::info($request->all());

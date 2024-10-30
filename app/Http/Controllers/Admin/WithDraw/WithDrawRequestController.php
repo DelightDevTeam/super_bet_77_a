@@ -15,7 +15,7 @@ class WithDrawRequestController extends Controller
 {
     public function index()
     {
-        $withdraws = WithDrawRequest::with(['user', 'paymentType'])->where('agent_id', Auth::id())->get();
+        $withdraws = WithDrawRequest::with(['user', 'paymentType'])->where('agent_id', Auth::id())->orderby('id', 'desc')->get();
 
         return view('admin.withdraw_request.index', compact('withdraws'));
     }
@@ -30,16 +30,21 @@ class WithDrawRequestController extends Controller
             ]);
             $agent = Auth::user();
             $player = User::find($request->player);
-
+        
             // Check if the status is being approved and balance is sufficient
-            if ($request->status == 1 && $agent->balance < $request->amount) {
+            if ($request->status == 1 && $agent->balanceFloat < $request->amount) {
                 return redirect()->back()->with('error', 'You do not have enough balance to transfer!');
             }
+            
+            if ($request->status == 1 && $player->balanceFloat < $request->amount) {
+                return redirect()->back()->with('error', 'Player does not have enough balance to transfer!');
+            }
+
             if ($request->status == 1) {
                 $withdraw->update([
                     'status' => $request->status,
                 ]);
-                app(WalletService::class)->transfer($player, $agent, $request->validated('amount'), TransactionName::DebitTransfer);
+                app(WalletService::class)->transfer($player, $agent, $request->amount, TransactionName::DebitTransfer);
             }
 
             return redirect()->route('admin.agent.withdraw')->with('success', 'WithDraw status updated successfully!');

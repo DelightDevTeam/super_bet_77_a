@@ -14,6 +14,11 @@ class GameController extends Controller
 {
     use HttpResponses;
 
+    public function __construct()
+    {
+        $this->middleware('checkBanned');
+    }
+    
     public function gameType()
     {
         $gameType = GameType::where('status', 1)->get();

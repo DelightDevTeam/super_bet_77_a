@@ -14,6 +14,11 @@ class DepositRequestController extends Controller
 {
     use HttpResponses;
 
+    public function __construct()
+    {
+        $this->middleware('checkBanned');
+    }
+    
     public function deposit(DepositRequest $request)
     {
         try {

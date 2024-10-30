@@ -25,6 +25,11 @@ class AuthController extends Controller
 
     private const PLAYER_ROLE = 3;
 
+    public function __construct()
+    {
+        $this->middleware('checkBanned');
+    }
+
     public function login(LoginRequest $request)
     {
         $credentials = $request->only('user_name', 'password');
@@ -35,8 +40,8 @@ class AuthController extends Controller
             return $this->error('', 'Credentail does not match!', 401);
         }
 
-        if ($user->is_changed_password == 0) {
-            return $this->error($user, 'You have to change password', 200);
+        if ($user->status == 0) {
+            return $this->error('','You are banned. Please contact the administrator for more information.', 401);
         }
 
         if (! Auth::attempt($credentials)) {

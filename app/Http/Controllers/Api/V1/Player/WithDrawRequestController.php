@@ -13,7 +13,12 @@ use Illuminate\Support\Facades\Auth;
 class WithDrawRequestController extends Controller
 {
     use HttpResponses;
-
+    
+    public function __construct()
+    {
+        $this->middleware('checkBanned');
+    }
+    
     public function withdraw(WithdrawRequest $request)
     {
         try {

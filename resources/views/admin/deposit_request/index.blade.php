@@ -38,6 +38,7 @@
         <th>Bank Account Number</th>
         <th>TransactionNo</th>
         <th>Status</th>
+        <th>Note</th>
         <th>Created_at</th>
         <th>Action</th>
       </thead>
@@ -53,9 +54,7 @@
           <td>{{ $deposit->userPayment->paymentType->name }}</td>
           <td>{{$deposit->userPayment->account_name}}</td>
           <td>{{$deposit->userPayment->account_no}}</td>
-          {{-- <td>
-          <span class="badge text-bg-{{ $deposit->status == 0 ? 'danger' : 'success' }} text-white mb-2">{{ $deposit->status == 0 ? "pending" : "done" }}</span>
-          </td> --}}
+  
           <td>{{ $deposit->refrence_no }}</td>
 
           <td>
@@ -68,7 +67,7 @@
             @endif
           </td>
 
-
+          <td>{{ $deposit->note }}</td>
           <td>{{ $deposit->created_at->format('d-m-Y') }}</td>
           <td>
     <div class="d-flex align-items-center">
@@ -106,6 +105,8 @@
 @endsection
 @section('scripts')
 <script src="{{ asset('admin_app/assets/js/plugins/datatables.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
 
 <script>
   if (document.getElementById('users-search')) {
@@ -139,4 +140,24 @@
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
 </script>
+<script>
+   var errorMessage = @json(session('error'));
+  var successMessage = @json(session('success'));
+  @if(session()-> has('success'))
+  Swal.fire({
+    title: successMessage,
+    icon: "success",
+    showConfirmButton: false,
+    showCloseButton: true,
+  });
+  @elseif(session()->has('error'))
+  Swal.fire({
+    icon: 'error',
+    title: errorMessage,
+    showConfirmButton: false,
+    timer: 1500
+  })
+  @endif
+</script>
+
 @endsection
