@@ -19,7 +19,7 @@ class TransferLogController extends Controller
     {
         $this->authorize('transfer_log', User::class);
         $transferLogs = Auth::user()->transactions()->with('targetUser')->latest()->paginate();
-
+        
         return view('admin.trans_log.index', compact('transferLogs'));
     }
 

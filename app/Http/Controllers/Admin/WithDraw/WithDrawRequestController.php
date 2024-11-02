@@ -22,35 +22,31 @@ class WithDrawRequestController extends Controller
 
     public function statusChangeIndex(Request $request, WithDrawRequest $withdraw)
     {
-        try {
-            $request->validate([
-                'status' => 'required|in:0,1,2',
-                'amount' => 'required|numeric|min:0',
-                'player' => 'required|exists:users,id',
-            ]);
-            $agent = Auth::user();
-            $player = User::find($request->player);
-        
-            // Check if the status is being approved and balance is sufficient
-            if ($request->status == 1 && $agent->balanceFloat < $request->amount) {
-                return redirect()->back()->with('error', 'You do not have enough balance to transfer!');
-            }
-            
-            if ($request->status == 1 && $player->balanceFloat < $request->amount) {
-                return redirect()->back()->with('error', 'Player does not have enough balance to transfer!');
-            }
+        $request->validate([
+            'status' => 'required|in:0,1,2',
+            'amount' => 'required|numeric|min:0',
+            'player' => 'required|exists:users,id',
+        ]);
+        $agent = Auth::user();
+        $player = User::find($request->player);
 
-            if ($request->status == 1) {
-                $withdraw->update([
-                    'status' => $request->status,
-                ]);
-                app(WalletService::class)->transfer($player, $agent, $request->amount, TransactionName::DebitTransfer);
-            }
-
-            return redirect()->route('admin.agent.withdraw')->with('success', 'WithDraw status updated successfully!');
-        } catch (Exception $e) {
-            return back()->with('error', $e->getMessage());
+        // Check if the status is being approved and balance is sufficient
+        if ($request->status == 1 && $agent->balanceFloat < $request->amount) {
+            return redirect()->back()->with('error', 'You do not have enough balance to transfer!');
         }
+
+        if ($request->status == 1 && $player->balanceFloat < $request->amount) {
+            return redirect()->back()->with('error', 'Player does not have enough balance to transfer!');
+        }
+
+        if ($request->status == 1) {
+            $withdraw->update([
+                'status' => $request->status,
+            ]);
+            app(WalletService::class)->transfer($player, $agent, $request->amount, TransactionName::DebitTransfer);
+        }
+
+        return redirect()->route('admin.agent.withdraw')->with('success', 'WithDraw status updated successfully!');
     }
 
     public function statusChangeReject(Request $request, WithDrawRequest $withdraw)

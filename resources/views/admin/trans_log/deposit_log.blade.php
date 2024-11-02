@@ -44,8 +44,6 @@
           </thead>
           <tbody>
             @foreach($transferLogs as $log)
-            @dd($log);
-
             <tr>
               <td>{{ $log->created_at->format('Y-m-d H:m:i') }}</td>
               <td>{{Auth::user()->user_name}}</td>
