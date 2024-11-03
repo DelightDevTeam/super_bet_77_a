@@ -23,7 +23,7 @@ class AuthController extends Controller
 {
     use HttpResponses;
 
-    private const PLAYER_ROLE = 4;
+    private const PLAYER_ROLE = 3;
 
     public function __construct()
     {
