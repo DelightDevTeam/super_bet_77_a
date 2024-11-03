@@ -97,6 +97,13 @@
               @enderror
             </div>
             <div class="custom-form-group">
+              <label for="title">ReferralCode<span class="text-danger">*</span></label>
+              <input type="text"  name="referral_code" class="form-control" value="{{$agent->referral_code}}">
+              @error('referral_code')
+              <span class="text-danger d-block">*{{ $message }}</span>
+              @enderror
+            </div>
+            <div class="custom-form-group">
               <label for="title">Phone No</label>
               <input type="text"  name="phone" class="form-control" value="{{$agent->phone}}">
               @error('phone')

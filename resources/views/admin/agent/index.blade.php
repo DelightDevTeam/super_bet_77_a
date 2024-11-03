@@ -39,6 +39,7 @@
             <th>#</th>
             <th>AgentID</th>
             <th>AgentName</th>
+            <th>ReferralCode</th>
             <th>Phone</th>
             <th>Status</th>
             <th>Balance</th>
@@ -58,7 +59,7 @@
                 <span class="d-block">{{ $user->name }}</span>
               </td>
               
-              {{-- <td>{{$user->referral_code}}</td> --}}
+              <td>{{$user->referral_code}}</td>
               <td>{{ $user->phone }}</td>
               <td>
                   <small class="badge bg-gradient-{{ $user->status == 1 ? 'success' : 'danger' }}">{{ $user->status == 1 ? "active" : "inactive" }}</small>
