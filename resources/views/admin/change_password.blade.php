@@ -6,7 +6,7 @@
         <div class="col-md-6 offset-md-3">
           <div class="p-3 shadow bg-transparent border border-1 border-light rounded-4">
             <div class="text-center mt-3">
-              <img src="{{ asset('/assets/img/logo.png') }}" alt="" style="width: 120px; height: auto" />
+              <img src="{{ asset('/assets/img/logo_new.png') }}" alt="" style="width: 120px; height: auto" />
             </div>
             <h5 class="text-center mt-3 text-white">Change Password</h5>
            
