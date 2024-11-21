@@ -188,7 +188,7 @@
 <script>
     var errorMessage = @json(session('error'));
     var successMessage = @json(session('success'));
-    var url = 'https://bettingking.pro/login';
+    var url = 'https://gamestar77.online/login';
     var name = @json(session('username'));
     var pw = @json(session('password'));
     var deposit_amount = @json(session('amount'));
